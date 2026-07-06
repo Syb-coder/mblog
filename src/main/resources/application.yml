@@ -1,0 +1,84 @@
+server:
+    port: 8080
+    forward-headers-strategy: native
+    undertow:
+        io-threads: 2
+        worker-threads: 32
+        buffer-size: 1024
+        directBuffers: true
+spring:
+    main:
+        allow-circular-references: true
+    profiles:
+        active: @profileActive@
+    devtools:
+        enabled: true
+    cache:
+        type: simple
+    servlet:
+        multipart:
+            max-file-size: 10MB
+            max-request-size: 10MB
+    freemarker:
+        template-loader-path:
+        - classpath:/templates
+        - file:${site.location}/storage/templates
+        cache: false
+        check-template-location: true
+        request-context-attribute: request
+        charset: utf-8
+        suffix: .ftl
+        settings:
+            classic_compatible: true #处理空值
+            template_exception_handler: rethrow
+            template_update_delay: 0
+            datetime_format: yyyy-MM-dd HH:mm
+            number_format: 0.##
+            auto_import: /utils.ftl as utils
+    flyway:
+        enabled: false
+        baseline-on-migrate: true
+        encoding: UTF-8
+        locations: classpath:scripts/migration
+    data:
+        jpa:
+            repositories:
+                bootstrap-mode: deferred
+shiro:
+    web:
+        enabled: true
+    annotations:
+        enabled: false
+    loginUrl: /login
+    successUrl: /index
+    unauthorizedUrl: /error/reject.html
+    sessionManager:
+        cookie:
+            maxAge: 604800
+    rememberMeManager:
+        cookie:
+            maxAge: 604800
+
+logging:
+    config: classpath:logback-spring.xml
+
+# site.options.theme: [default|classic]
+site:
+    version: 4.0.0
+    location: C:/020-docker-data/mblog-storage
+    controls:
+        # 注册开关
+        register: true
+        # 发布文章开关
+        post: true
+        # 评论开关
+        comment: true
+    options:
+        theme: classic
+        site_logo: /dist/images/logo/logo.png
+        site_favicon: /dist/images/logo/m.png
+        storage_max_width: 800
+        storage_limit_size: 2
+        editor: markdown
+        thumbnail_channel_size: 200x112
+        thumbnail_post_size: 360x200
