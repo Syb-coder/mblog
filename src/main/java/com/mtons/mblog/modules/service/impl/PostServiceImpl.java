@@ -6,7 +6,6 @@ import com.mtons.mblog.modules.aspect.PostStatusFilter;
 import com.mtons.mblog.modules.data.PostVO;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.entity.*;
-import com.mtons.mblog.modules.event.PostUpdateEvent;
 import com.mtons.mblog.modules.repository.ResourceRepository;
 import com.mtons.mblog.modules.repository.PostAttributeRepository;
 import com.mtons.mblog.modules.repository.PostResourceRepository;
@@ -17,7 +16,6 @@ import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +51,6 @@ import java.util.stream.Collectors;
  * 并发控制：使用 {@link ResourceLock} 基于文章 ID 的细粒度锁（AtomicInteger），
  * 防止同文章并发写入导致资源引用计数错乱。
  * </p>
- *
  */
 @Service
 @Transactional
@@ -70,8 +67,6 @@ public class PostServiceImpl implements PostService {
 	private ChannelService channelService;
 	@Autowired
 	private TagService tagService;
-	@Autowired
-	private ApplicationContext applicationContext;
 	@Autowired
 	private PostResourceRepository postResourceRepository;
 	@Autowired
@@ -173,7 +168,6 @@ public class PostServiceImpl implements PostService {
 	 *   <li>写入文章主表</li>
 	 *   <li>同步标签关联（{@link TagService#batchUpdate}）</li>
 	 *   <li>统计正文图片引用并维护资源引用计数</li>
-	 *   <li>发布 {@link PostUpdateEvent} 触发索引/计数等异步逻辑</li>
 	 * </ol>
 	 * </p>
 	 */
@@ -210,8 +204,6 @@ public class PostServiceImpl implements PostService {
 
                 // 统计正文中新增图片并维护资源引用计数
                 countResource(po.getId(), null,  attr.getContent());
-                // 广播文章发布事件，触发搜索索引更新与用户文章数累加
-                onPushEvent(po, PostUpdateEvent.ACTION_PUBLISH);
                 return po.getId();
             }
         }finally {
@@ -309,7 +301,6 @@ public class PostServiceImpl implements PostService {
 				postAttributeRepository.deleteById(id);
 				// 级联清理资源引用计数，避免资源成为孤儿引用
 				cleanResource(po.getId());
-				onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
 			}
 		}finally {
 			ResourceLock.giveUpAtomicInteger(key);
@@ -333,7 +324,6 @@ public class PostServiceImpl implements PostService {
 						postRepository.delete(po);
 						postAttributeRepository.deleteById(po.getId());
 						cleanResource(po.getId());
-						onPushEvent(po, PostUpdateEvent.ACTION_DELETE);
 					}
 				}finally {
 					ResourceLock.giveUpAtomicInteger(key);
@@ -454,18 +444,6 @@ public class PostServiceImpl implements PostService {
 	private void buildGroups(Collection<PostVO> posts, Set<Integer> groupIds) {
 		Map<Integer, Channel> map = channelService.findMapByIds(groupIds);
 		posts.forEach(p -> p.setChannel(map.get(p.getChannelId())));
-	}
-
-	/**
-	 * <p>通过 Spring {@link ApplicationContext#publishEvent} 发布，
-	 * 监听者负责搜索索引更新与用户文章数计数维护。</p>
-	 */
-	private void onPushEvent(Post post, int action) {
-		PostUpdateEvent event = new PostUpdateEvent(System.currentTimeMillis());
-		event.setPostId(post.getId());
-		event.setUserId(post.getAuthorId());
-		event.setAction(action);
-		applicationContext.publishEvent(event);
 	}
 
 	/**
