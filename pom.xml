@@ -280,13 +280,6 @@
 		</profile>
 
 
-		<!--Docker环境-->
-		<profile>
-			<id>docker</id>
-			<properties>
-				<profileActive>docker</profileActive>
-			</properties>
-		</profile>
 	</profiles>
 
 	<build>
