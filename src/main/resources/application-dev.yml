@@ -18,8 +18,4 @@ spring:
             hibernate.format_sql: true
             hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
             hibernate.cache.use_second_level_cache: false
-            hibernate.search.backend.type: lucene
-            hibernate.search.backend.directory.type: local-filesystem
-            hibernate.search.backend.directory.root: ${site.location}/storage/indexes
-            hibernate.search.backend.analysis.configurer: com.mtons.mblog.config.SmartCnAnalysisConfigurer
-            hibernate.search.backend.lucene_version: LATEST
+

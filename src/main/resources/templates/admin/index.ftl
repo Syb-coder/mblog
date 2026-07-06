@@ -113,9 +113,7 @@
                     <button type="button" class="btn btn-primary" data-action="reload_options">
                         刷新系统变量
                     </button>
-                    <button type="button" class="btn btn-info" data-action="reset_indexes">
-                        重建索引
-                    </button>
+
                 </div>
             </div>
         </div>
@@ -166,14 +164,7 @@
             return false;
         });
 
-        // 重建索引
-        $('button[data-action="reset_indexes"]').bind('click', function(){
-            if(confirm('确定要重建文章索引吗？')){
-                J.getJSON('${base}/admin/options/reset_indexes', ajaxReload);
-            }
-            return false;
-        });
-        
+
         J.getJSON('${base}/api/latest_comments', function (result) {
             if (result.length > 0) {
                 var template = $('#chat')[0].text;

@@ -17,7 +17,7 @@
 		<coobird.thumbnailator>0.4.8</coobird.thumbnailator>
 		<fastjson2.version>2.0.47</fastjson2.version>
 		<org.jsoup>1.15.3</org.jsoup>
-		<hibernate.search.version>7.2.4.Final</hibernate.search.version>
+
 		<commonmark.version>0.12.1</commonmark.version>
 	</properties>
 
@@ -125,21 +125,7 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>org.hibernate.search</groupId>
-			<artifactId>hibernate-search-mapper-orm</artifactId>
-			<version>${hibernate.search.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.search</groupId>
-			<artifactId>hibernate-search-backend-lucene</artifactId>
-			<version>${hibernate.search.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-analyzers-smartcn</artifactId>
-			<version>8.11.4</version>
-		</dependency>
+
 
 		<!-- ehcache -->
 		<dependency>
