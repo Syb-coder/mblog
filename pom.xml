@@ -131,11 +131,7 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+
 
 		<dependency>
 			<groupId>org.hibernate.search</groupId>
@@ -305,13 +301,6 @@
 			</properties>
 		</profile>
 
-		<!--H2环境-->
-		<profile>
-			<id>h2</id>
-			<properties>
-				<profileActive>h2</profileActive>
-			</properties>
-		</profile>
 
 		<!--Docker环境-->
 		<profile>
