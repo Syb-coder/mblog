@@ -15,7 +15,6 @@
  */
 define(function(require, exports, module) {
     var plugins = require('plugins');
-	var Authc = require('authc');
 
 	// wpex 主题本地化文案，预留供主题相关组件使用
     var wpexLocalize = {
@@ -60,60 +59,13 @@ define(function(require, exports, module) {
 		} );
     }
     
-	// 绑定按钮事件
-	/**
-	 * 绑定全站通用按钮事件。
-	 *
-	 * 实现说明：
-	 *   - 收藏（a[rel=favor]）：未登录先弹登录框；登录后调用 /user/favor 接口，
-	 *     成功时将收藏数 +1，失败时弹出后端错误消息。
-	 *
-	 * 注：下方 pjax 相关代码已被注释关闭，保留以便后续按需启用。
-	 */
-	var bindClickEvent = function () {
-		// Favor
-		// 收藏按钮：通过 rel=favor 标识，data-id 携带目标文章 ID
-		$('a[rel=favor]').click(function () {
-			var id = $(this).attr('data-id');
-
-			// 收藏属用户行为，未登录时弹出登录框并中止
-			if (!Authc.isAuthced()) {
-				Authc.showLogin();
-				return false;
-			}
-
-			if (parseInt(id) > 0) {
-				// 调用后端收藏接口，BASE_PATH 用于适配反向代理/部署上下文
-				jQuery.getJSON(_MTONS.BASE_PATH +'/user/favor', {'id': id}, function (ret) {
-					if (ret.code >=0) {
-						// 成功：读取当前收藏数并 +1，避免重新拉取列表
-						var favors = $('#favors').text();
-						$('#favors').text(parseInt(favors) + 1);
-					} else {
-						// 业务失败：弹出后端返回的错误消息（icon:5 表示失败）
-						layer.msg(ret.message, {icon: 5});
-					}
-				});
-			}
-		});
-
-		//$(document).pjax('a[rel=pjax]', '#wrap', {
-		//	fragment: '#wrap',
-		//	timeout: 10000,
-		//	maxCacheLength: 0
-		//});
-	}
-
 	/* *
 	 * 实现说明：
 	 *   - 启用返回顶部按钮交互；
-	 *   - 绑定全站通用按钮事件；
 	 *   - 初始化所有带 data-toggle="tooltip" 的元素为 Bootstrap tooltip。
 	 */
     exports.init = function () {
-    	// imagesLazyload();
     	backToTop();
-		bindClickEvent();
 		// Bootstrap tooltip 初始化：依赖 data-toggle="tooltip" 属性
         $('[data-toggle="tooltip"]').tooltip();
     };

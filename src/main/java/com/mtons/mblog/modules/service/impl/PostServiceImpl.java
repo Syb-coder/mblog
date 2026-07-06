@@ -37,7 +37,6 @@ import java.util.stream.Collectors;
  *   <li>{@link PostResourceRepository}：文章-资源关联仓储（图片引用计数）</li>
  *   <li>{@link ResourceRepository}：资源仓储（图片 md5 与引用计数）</li>
  *   <li>{@link UserService}：回填作者信息</li>
- *   <li>{@link FavoriteService}：收藏联动</li>
  *   <li>{@link ChannelService}：回填栏目信息</li>
  *   <li>{@link TagService}：标签关联维护</li>
  * </ul>
@@ -61,8 +60,6 @@ public class PostServiceImpl implements PostService {
 	private PostAttributeRepository postAttributeRepository;
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private FavoriteService favoriteService;
 	@Autowired
 	private ChannelService channelService;
 	@Autowired
@@ -345,28 +342,6 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	public void identityComments(long id) {
 		postRepository.updateComments(id, Consts.IDENTITY_STEP);
-	}
-
-	/**
-	 * 收藏文章
-	 * <p>原子累加文章收藏数 + 写入收藏记录，二者在同一事务内保证一致性。</p>
-	 */
-	@Override
-    @Transactional(rollbackFor = Throwable.class)
-	public void favor(long userId, long postId) {
-		postRepository.updateFavors(postId, Consts.IDENTITY_STEP);
-		favoriteService.add(userId, postId);
-	}
-
-	/**
-	 * 取消收藏文章
-	 * <p>原子减少文章收藏数 + 删除收藏记录，使用 {@link Consts#DECREASE_STEP} 步长。</p>
-	 */
-	@Override
-	@Transactional(rollbackFor = Throwable.class)
-	public void unfavor(long userId, long postId) {
-		postRepository.updateFavors(postId,  Consts.DECREASE_STEP);
-		favoriteService.delete(userId, postId);
 	}
 
 	@Override

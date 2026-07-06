@@ -45,9 +45,7 @@
             <li class="list-group-item">
                 <a href="${base}/users/${user.id}/comments"><i class="icon icon-speech"></i> 发表的评论</a>
             </li>
-            <li class="list-group-item">
-                <a href="${base}/users/${user.id}/favorites"><i class="icon icon-heart"></i> 收藏的文章</a>
-            </li>
+
         </ul>
     </div>
 </nav>

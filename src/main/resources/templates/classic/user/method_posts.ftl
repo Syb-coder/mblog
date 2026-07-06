@@ -18,8 +18,6 @@
                                     <li class="list-group-item" el="loop-${row.id}">
                                         <a href="${base}/post/${row.id}" class="remove-padding-left">${row.title}</a>
                                         <span class="meta">
-                                            ${row.favors} 点赞
-                                            <span> ⋅ </span>
                                             ${row.comments} 回复
                                             <span> ⋅ </span>
                                             <span class="timeago">${timeAgo(row.created)}</span>

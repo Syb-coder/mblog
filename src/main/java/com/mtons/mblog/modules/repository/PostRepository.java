@@ -41,19 +41,6 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
     void updateViews(@Param("id") long id, @Param("increment") int increment);
 
     /**
-     * 原子递增文章收藏数
-     * <p>
-     * :increment 可为负值用于取消收藏回退场景。
-     * </p>
-     *
-     * @param id        文章 ID
-     * @param increment 增量（可为负）
-     */
-    @Modifying
-    @Query("update Post set favors = favors + :increment where id = :id")
-    void updateFavors(@Param("id") long id, @Param("increment") int increment);
-
-    /**
      * 原子递增文章评论数
      * <p>
      * :increment 可为负值用于评论删除回退场景。

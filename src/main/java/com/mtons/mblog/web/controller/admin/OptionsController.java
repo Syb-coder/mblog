@@ -1,7 +1,5 @@
 package com.mtons.mblog.web.controller.admin;
 
-package com.mtons.mblog.web.controller.admin;
-
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.config.ContextStartup;
 import com.mtons.mblog.modules.service.OptionsService;

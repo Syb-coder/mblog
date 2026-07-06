@@ -27,11 +27,6 @@ public interface Views {
      */
     String METHOD_COMMENTS = "comments";
 
-    /**
-     * 用户主页方法标识 - 收藏列表
-     */
-    String METHOD_FAVORITES = "favorites";
-
     String SETTINGS_AVATAR = "/settings/avatar";
 
     String SETTINGS_PASSWORD = "/settings/password";

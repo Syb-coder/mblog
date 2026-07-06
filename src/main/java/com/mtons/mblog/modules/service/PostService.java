@@ -123,24 +123,6 @@ public interface PostService {
 	void identityComments(long id);
 
 	/**
-	 * 收藏文章（同步累加文章收藏数 + 写入收藏记录）
-	 *
-	 * @param userId  用户 ID
-	 * @param postId  文章 ID
-	 */
-	@CacheEvict(key = "'view_' + #postId")
-	void favor(long userId, long postId);
-
-	/**
-	 * 取消收藏文章（同步减少文章收藏数 + 删除收藏记录）
-	 *
-	 * @param userId  用户 ID
-	 * @param postId  文章 ID
-	 */
-	@CacheEvict(key = "'view_' + #postId")
-	void unfavor(long userId, long postId);
-
-	/**
 	 * 统计文章总数
 	 *
 	 * @return 文章总数

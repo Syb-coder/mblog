@@ -78,18 +78,6 @@ public class BeanMapUtils {
     }
 
     /**
-     * 将收藏 PO 转换为 FavoriteVO
-     *
-     * @param po 收藏持久化对象
-     * @return 收藏视图对象
-     */
-    public static FavoriteVO copy(Favorite po) {
-        FavoriteVO ret = new FavoriteVO();
-        BeanUtils.copyProperties(po, ret);
-        return ret;
-    }
-
-    /**
      * 将文章-标签关联 PO 转换为 PostTagVO
      *
      * @param po 文章标签关联持久化对象
@@ -116,7 +104,7 @@ public class BeanMapUtils {
     /**
      * 根据前端传入的排序标识解析为 JPA 排序字段数组
      *
-     * @param order 排序方式标识（newest/hottest/favors）
+     * @param order 排序方式标识（newest/hottest）
      * @return JPA 排序字段名数组
      */
     public static String[] postOrder(String order) {
@@ -124,9 +112,6 @@ public class BeanMapUtils {
         switch (order) {
             case Consts.order.HOTTEST:
                 orders = new String[]{"comments", "views", "created"};
-                break;
-            case Consts.order.FAVOR:
-                orders = new String[]{"favors", "created"};
                 break;
             default:
                 orders = new String[]{"created"};

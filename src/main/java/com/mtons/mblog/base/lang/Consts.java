@@ -105,10 +105,6 @@ public interface Consts {
 		 */
 		String HOTTEST = "hottest";
 
-		/**
-		 * 喜欢排序：按喜欢数倒序
-		 */
-		String FAVOR = "favors";
 	}
 
 	/**

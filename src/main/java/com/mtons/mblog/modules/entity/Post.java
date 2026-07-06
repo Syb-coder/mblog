@@ -4,9 +4,6 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.FilterDefs;
 import org.hibernate.annotations.Filters;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import jakarta.persistence.Index;
 import jakarta.persistence.*;
@@ -15,15 +12,7 @@ import java.util.Date;
 
 /**
  * 内容表 Entity，对应数据库 mto_post 表。
- * <p>
- * 该 Entity 同时承载 Hibernate Search 索引元数据，用于全文检索：
- * <ul>
- *   <li>String 字段（title/summary/tags）使用 smartcn 分词器建立全文索引；</li>
- *   <li>数字字段（channelId/authorId）以 GenericField 形式建立索引；</li>
- * </ul>
- * </p>
- * 通过 POST_STATUS_FILTER 过滤器，默认仅暴露 status = 0 的有效记录，
- *
+ * 通过 POST_STATUS_FILTER 过滤器，默认仅暴露 status = 0 的有效记录。
  */
 @Entity
 @Table(name = "mto_post", indexes = {
@@ -32,7 +21,6 @@ import java.util.Date;
 @FilterDefs({
 		@FilterDef(name = "POST_STATUS_FILTER", defaultCondition = "status = 0" )})
 @Filters({ @Filter(name = "POST_STATUS_FILTER") })
-@Indexed(index = "post")
 public class Post implements Serializable {
 	private static final long serialVersionUID = 7144425803920583495L;
 
@@ -41,24 +29,20 @@ public class Post implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@GenericField
 	private long id;
 
-	@GenericField
 	@Column(name = "channel_id", length = 5)
 	private int channelId;
 
 	/**
 	 * 标题
 	 */
-	@FullTextField(analyzer = "smartcn")
 	@Column(name = "title", length = 64)
 	private String title;
 
 	/**
 	 * 摘要
 	 */
-	@FullTextField(analyzer = "smartcn")
 	@Column(length = 140)
 	private String summary;
 
@@ -71,24 +55,17 @@ public class Post implements Serializable {
 	/**
 	 * 标签, 多个逗号隔开
 	 */
-	@FullTextField(analyzer = "smartcn")
 	@Column(length = 64)
 	private String tags;
 
 	/**
 	 * 作者Id
 	 */
-	@GenericField
 	@Column(name = "author_id")
 	private long authorId;
 
 	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date created;
-
-	/**
-	 * 收藏数
-	 */
-	private int favors;
 
 	/**
 	 * 评论数
@@ -247,18 +224,6 @@ public class Post implements Serializable {
 	 * 获取收藏数
 	 * @return 收藏数
 	 */
-	public int getFavors() {
-		return favors;
-	}
-
-	/**
-	 * 设置收藏数
-	 * @param favors 收藏数
-	 */
-	public void setFavors(int favors) {
-		this.favors = favors;
-	}
-
 	/**
 	 * 获取评论数
 	 * @return 评论数
