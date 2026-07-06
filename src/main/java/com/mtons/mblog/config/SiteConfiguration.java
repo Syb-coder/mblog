@@ -7,7 +7,6 @@ import com.alibaba.fastjson2.support.spring6.http.converter.FastJsonHttpMessageC
 import com.google.common.collect.Maps;
 import com.mtons.mblog.modules.template.TemplateDirective;
 import com.mtons.mblog.modules.template.method.TimeAgoMethod;
-import com.mtons.mblog.shiro.tags.ShiroTags;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -76,7 +75,6 @@ public class SiteConfiguration {
             configuration.setSharedVariables(vars);
 //          map.forEach((k, v) -> configuration.setSharedVariable(v.getName(), v));
             configuration.setSharedVariable("timeAgo", new TimeAgoMethod());
-            configuration.setSharedVariable("shiro", new ShiroTags());
             configuration.setSharedVariable("site", siteOptions);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
