@@ -35,11 +35,7 @@ spring:
             datetime_format: yyyy-MM-dd HH:mm
             number_format: 0.##
             auto_import: /utils.ftl as utils
-    flyway:
-        enabled: false
-        baseline-on-migrate: true
-        encoding: UTF-8
-        locations: classpath:scripts/migration
+
     data:
         jpa:
             repositories:
