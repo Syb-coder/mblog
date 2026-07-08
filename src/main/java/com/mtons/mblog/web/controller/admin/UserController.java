@@ -21,13 +21,17 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 后台用户管理控制器。
+ * 后台用户管理控制器
  *
- * 密码修改、启用/禁用账号</p>
- * <p>URL 前缀：{@code /admin/user}</p>
- * <p>权限要求：建议配置 {@code @RequiresPermissions("user:role/pwd/open/close")}，
- * 当前注解已注释，由后台拦截器统一鉴权</p>
+ * <h3>功能</h3>
+ * 1. 用户列表（分页 + 按用户名搜索 + 角色信息关联展示）
+ * 2. 编辑用户角色授权（update_role）
+ * 3. 管理员重置密码（pwd）
+ * 4. 启用/禁用账号（open / close）
  *
+ * <h3>@RequiresPermissions 为什么被注释掉了？</h3>
+ * 项目当前使用后台拦截器统一鉴权（AdminController 级别的权限控制），
+ * 没有细化到具体方法。如果未来需要细粒度权限控制，可以取消注释。
  */
 @Controller("adminUserController")
 @RequestMapping("/admin/user")

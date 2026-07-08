@@ -5,22 +5,29 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 角色 Entity
- * <p>
- * 对应数据库表 {@code shiro_role}，存储系统角色定义。
- * 业务含义：Shiro 角色实体，通过 {@link UserRole} 关联到用户，
- * 通过 {@link RolePermission} 关联到权限，构成“用户-角色-权限”鉴权模型。
- * </p>
+ * 角色实体 —— 对应数据库表 shiro_role
  *
- * <p>关键约束：
+ * <h3>业务含义</h3>
+ * 角色是 RBAC 权限模型中的核心概念。一个角色代表一组权限的集合，
+ * 例如"管理员"角色拥有所有权限，"普通用户"角色只有基础权限。
+ * 用户的最终权限 = 用户所属所有角色的权限并集。
+ *
+ * <h3>系统内置角色</h3>
  * <ul>
- *   <li>{@code name} 不可空且 {@code updatable = false}，长度 32；角色创建后名称不可修改。</li>
- *   <li>{@code permissions} 使用 {@link Transient} 标注，不持久化到数据库，
- *       仅用于业务层组装角色的权限列表。</li>
- *   <li>类内静态常量定义角色状态与内置角色名，供全局复用。</li>
+ *   <li>ROLE_ADMIN = "admin" —— 管理员，ADMIN_ID = 1</li>
+ *   <li>系统初始化时，schema.sql 会自动创建这个角色</li>
  * </ul>
- * </p>
  *
+ * <h3>关联关系</h3>
+ * Role (1) ←→ UserRole (N) ←→ User (N)     —— 用户-角色关联
+ * Role (1) ←→ RolePermission (N) ←→ Permission (N) —— 角色-权限关联
+ *
+ * <h3>关键字段</h3>
+ * <ul>
+ *   <li>permissions —— @Transient，不持久化，仅用于业务层在内存中组装权限列表</li>
+ *   <li>name —— 角色标识，如 "admin"，不可修改</li>
+ *   <li>status —— 0=正常, 1=关闭</li>
+ * </ul>
  */
 @Entity
 @Table(name = "shiro_role")

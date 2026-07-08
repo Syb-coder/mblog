@@ -1,4 +1,4 @@
-/* *
+/**
  */
 package com.mtons.mblog.web.controller.site.posts;
 
@@ -18,8 +18,16 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 文章操作
- *
+ * 前台文章操作 Controller
+ * <p>
+ * 处理已登录用户的文章编辑、发布、更新和删除操作。
+ * 与后台 {@link com.mtons.mblog.web.controller.admin.PostController} 的区别：
+ * 前台 Controller 包含严格的作者身份校验（{@code Assert.isTrue(view.getAuthorId() == profile.getId())}），
+ * 管理员后台则无此限制。
+ * </p>
+ * <p>
+ * URL 前缀：{@code /post}
+ * </p>
  */
 @Controller
 @RequestMapping("/post")
@@ -31,7 +39,9 @@ public class PostController extends BaseController {
 
 	/**
 	 * 发布文章页
-	 * @return
+	 * @param id    文章 ID（编辑场景传入，新建场景为 null）
+	 * @param model 视图模型
+	 * @return 文章编辑页视图
 	 */
 	@GetMapping("/editing")
 	public String view(Long id, ModelMap model) {
@@ -58,8 +68,8 @@ public class PostController extends BaseController {
 
 	/**
 	 * 提交发布
-	 * @param post
-	 * @return
+	 * @param post 文章表单对象
+	 * @return 重定向到用户主页
 	 */
 	@PostMapping("/submit")
 	public String post(PostVO post) {
@@ -84,8 +94,8 @@ public class PostController extends BaseController {
 
 	/**
 	 * 删除文章
-	 * @param id
-	 * @return
+	 * @param id 文章 ID
+	 * @return 操作结果
 	 */
 	@RequestMapping("/delete/{id}")
 	@ResponseBody

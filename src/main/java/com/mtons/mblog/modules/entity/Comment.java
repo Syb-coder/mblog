@@ -4,8 +4,32 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 /**
- * 评论
+ * 评论实体 —— 对应数据库表 mto_comment
  *
+ * <h3>业务含义</h3>
+ * 记录用户对文章的评论。支持"盖楼"形式的嵌套评论（通过 pid 指向父评论）。
+ * pid = 0 表示这是一条顶级评论（直接回复文章的）。
+ * pid ≠ 0 表示这是一条子评论（回复某条评论的）。
+ *
+ * <h3>关键字段</h3>
+ * <ul>
+ *   <li>pid —— 父评论 ID。0=顶级评论，非0=回复某条评论</li>
+ *   <li>postId —— 所属文章 ID</li>
+ *   <li>authorId —— 评论作者 ID，关联 User 表</li>
+ *   <li>status —— 评论状态（0=正常，1=隐藏/删除）</li>
+ * </ul>
+ *
+ * <h3>数据库表结构</h3>
+ * <pre>
+ * mto_comment
+ * ├── id        BIGINT    PK, 自增
+ * ├── pid       BIGINT                         ← 父评论ID(0=顶级)
+ * ├── post_id   BIGINT    INDEX                ← 所属文章
+ * ├── content   TEXT
+ * ├── created   DATETIME
+ * ├── author_id BIGINT                         ← 评论作者
+ * └── status    INT                            ← 0=正常 1=删除
+ * </pre>
  */
 @Entity
 @Table(name = "mto_comment", indexes = {

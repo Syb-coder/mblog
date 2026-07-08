@@ -6,7 +6,15 @@ import freemarker.template.SimpleScalar;
 import org.springframework.stereotype.Component;
 
 /**
- * 布局内容注入指令
+ * 布局内容注入指令：在子页面中将内容注入到父布局的指定区块。
+ * <p>
+ * 与 {@link BlockDirective} 配合实现模板继承的"插槽"机制：
+ * <ul>
+ *   <li>在 {@link ExtendsDirective} 体内使用，声明要替换/追加/前置哪个区块；</li>
+ *   <li>注入内容写入 FreeMarker 变量空间（而非直接输出），供父布局的 Block 指令读取；</li>
+ *   <li>变量名称使用 {@link #PUT_DATA_PREFIX} 前缀避免与业务变量冲突。</li>
+ * </ul>
+ * </p>
  * <p>
  * FreeMarker 使用方式：
  * <pre>{@code
@@ -16,6 +24,8 @@ import org.springframework.stereotype.Component;
  * <p>
  * 支持参数：
  * <ul>
+ *     <li>block：目标区块名称（对应 BlockDirective 的 name）</li>
+ *     <li>type：写入策略（replace / append / prepend），默认 REPLACE</li>
  * </ul>
  *
  * @since 4.0.0

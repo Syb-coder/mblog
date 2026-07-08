@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     mblog 博客系统一键启动脚本（Windows PowerShell 版）
 .DESCRIPTION
@@ -23,7 +23,13 @@ param(
     [string]$SpringArgs = ""
 )
 
-$ErrorActionPreference = "Stop"
+# 强制控制台使用 UTF-8 输出，避免中文乱码
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
+# 使用 Continue 模式：原生命令(java/mvn/docker)的 stderr 不会触发终止
+# 关键步骤通过 $LASTEXITCODE 显式检查
+$ErrorActionPreference = "Continue"
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 # 控制台输出工具函数
@@ -130,7 +136,7 @@ if (-not $SkipDocker) {
 # ============================================================
 # 步骤 4：确保站点存储目录存在
 # application.yml 中 site.location 指向此目录，
-# 用于存储上传文件、Lucene 索引、FreeMarker 模板等。
+# 用于存储上传文件、FreeMarker 模板等。
 # ============================================================
 Write-Step "检查站点存储目录"
 $storageDir = "C:\020-docker-data\mblog-storage"

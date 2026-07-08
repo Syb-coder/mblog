@@ -42,7 +42,7 @@ public interface PostResourceRepository extends JpaRepository<PostResource, Long
      */
     List<PostResource> findByResourceId(long resourceId);
 
-    /* *
+    /**
      * @param postId 文章 ID
      * @return 关联记录列表
      */

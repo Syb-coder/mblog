@@ -21,7 +21,7 @@ import java.util.Set;
 @Repository
 public interface PostTagRepository extends JpaRepository<PostTag, Long>, JpaSpecificationExecutor<PostTag> {
 
-    /* *
+    /**
      * @param pageable 分页参数
      * @param tagId    标签 ID
      * @return 关联记录分页结果

@@ -166,9 +166,10 @@ public class SettingsController extends BaseController {
         return result;
     }
 
-    /* *
+    /**
      * @param uid  用户主键
      * @param size 头像边长（像素）
+     * @return 头像存储相对路径
      */
     private String getAvaPath(long uid, int size) {
         String base = FilePathUtils.getAvatar(uid);

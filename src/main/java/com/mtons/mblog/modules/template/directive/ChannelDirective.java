@@ -7,19 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>
- * FreeMarker 使用方式：
- * <pre>{@code
- * <@channel id=1>
- *     ${result.name}
- * </@channel>
- * }</pre>
- * <p>
- * 支持参数：
- * <ul>
- *     <li>id：栏目 ID（默认 0）</li>
- * </ul>
- * 输出：result - 栏目对象
+ * 栏目查询指令 —— 按 ID 获取单个栏目
+ *
+ * <h3>使用场景</h3>
+ * 文章详情页通常需要显示文章所属的栏目名称，
+ * 通过 &lt;@channel id=channelId&gt; 就能直接拿到 Channel 对象。
  */
 @Component
 public class ChannelDirective extends TemplateDirective {
@@ -41,7 +33,7 @@ public class ChannelDirective extends TemplateDirective {
         return "channel";
     }
 
-    /* *
+    /**
      * @param handler 指令处理器
      * @throws Exception 异常
      */

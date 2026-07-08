@@ -4,11 +4,27 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 账户档案信息，用于在会话中承载当前登录用户的核心身份信息。
- * <p>
- * 该对象实现 {@link Serializable}，可作为会话属性在分布式环境下安全传输。
- * </p>
+ * 账户档案信息 —— 登录会话中携带的用户核心身份
  *
+ * <h3>用途</h3>
+ * 当用户成功登录后，这个对象会被 Shiro 放入 Session 中（即"登录凭证"）。
+ * 后续请求可以从 SecurityUtils.getSubject().getPrincipal() 获取它，
+ * 而不需要每次都查数据库。
+ *
+ * <h3>为什么叫 AccountProfile 而不是直接用 User 实体？</h3>
+ * User 实体包含了密码、邮箱、文章数等大量字段，如果放在 Session 中，
+ * 每次请求都要序列化/反序列化这些数据，浪费性能。
+ * AccountProfile 只保留了登录态必需的几个字段（id, username, avatar, name, email, status），
+ * 是一种"轻量级会话对象"。
+ *
+ * 此外，ACcountProfile 不包含密码等敏感信息，即使 Session 被泄露，
+ * 攻击者也拿不到密码。
+ *
+ * <h3>在哪里被创建？</h3>
+ * - BeanMapUtils.copyPassport(User) 方法负责从 User 实体创建 AccountProfile
+ * - UserServiceImpl.login() 创建它并返回
+ * - AccountRealm.doGetAuthenticationInfo() 把它放入 Shiro 的认证信息中
+ * - 之后可以在任何 Controller 中通过 BaseController.getProfile() 获取
  */
 public class AccountProfile implements Serializable {
     private static final long serialVersionUID = 1748764917028425871L;

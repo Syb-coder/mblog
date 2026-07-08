@@ -17,8 +17,17 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * Ueditor 文件上传
+ * 文章编辑页的文件上传 Controller
+ * <p>
+ * 处理 Markdown 编辑器中粘贴/上传图片、附件等文件的上传请求。
+ * 支持裁剪（crop）和等比例缩放两种存储策略，通过 {@code crop} 参数区分。
+ * 文件类型与大小校验委托给 {@link FileKit} 和站点配置。
+ * </p>
+ * <p>
+ * URL 前缀：{@code /post}（与前台文章 Controller 共享路径）
+ * </p>
  *
+ * @see com.mtons.mblog.base.storage.StorageFactory
  */
 @Controller
 @RequestMapping("/post")

@@ -1,4 +1,14 @@
-/* *
+/**
+ * 前台评论 Controller（RESTful JSON 接口）
+ * <p>
+ * 负责前台用户的评论提交、列表查看和删除操作。
+ * 与后台 {@link com.mtons.mblog.web.controller.admin.CommentController} 的区别：
+ * 前台 Controller 包含严格的作者身份校验，仅允许删除本人评论。
+ * 通过 {@code site.controls.comment} 配置项控制是否启用评论功能。
+ * </p>
+ * <p>
+ * URL 前缀：{@code /comment}
+ * </p>
  */
 package com.mtons.mblog.web.controller.site.comment;
 
@@ -22,11 +32,10 @@ import org.springframework.web.util.HtmlUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-/* *
- * <p>仅在配置项 {@code site.controls.comment=true}（或缺省时）启用，
- * 用于支撑前台评论功能。</p>
- *
- */
+    /**
+     * 仅在配置项 {@code site.controls.comment=true}（或缺省时）启用，
+     * 用于支撑前台评论功能。
+     */
 @RestController
 @RequestMapping("/comment")
 @ConditionalOnProperty(name = "site.controls.comment", havingValue = "true", matchIfMissing = true)
@@ -34,7 +43,9 @@ public class CommentController extends BaseController {
     @Autowired
     private CommentService commentService;
 
-    /* *
+    /**
+     * 获取某篇文章的评论列表（分页）
+     *
      * @param toId 目标文章 ID
      * @return 评论分页数据，按 id 倒序排列
      */

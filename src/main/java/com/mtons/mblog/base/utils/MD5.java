@@ -9,10 +9,15 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * MD5 摘要工具
- * <p>
- * 提供字符串与字节数组的 MD5 计算能力，支持加盐二次摘要，
- * 结果以 32 进制大写形式返回，用于密码与文件去重场景。
- * </p>
+ *
+ * <h3>两个使用场景</h3>
+ * 1. 密码加密：md5(password, salt) → 加盐二次摘要，存储在 User.password 字段
+ * 2. 文件去重：md5(bytes) → 计算文件内容的 MD5，用于 Resource 表的 MD5 去重
+ *
+ * <h3>为什么用 32 进制大写出力？</h3>
+ * BigInteger.toString(32) 比传统的 16 进制更短（32 进制用 0-9A-V 表示），
+ * 适合作为存储文件名。MD5 本身就是 128 位，32 进制只需约 26 个字符。
+ * 传统 16 进制需要 32 个字符。
  */
 public class MD5 {
 

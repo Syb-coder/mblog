@@ -11,12 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 富文本预览处理工具
- * <p>
- * 基于 Jsoup 提供纯文本提取、限定标签白名单清洗以及图片地址抽取等能力，
- * 用于文章摘要生成与列表预览场景。
- * </p>
+ * 富文本预览处理工具 —— 基于 Jsoup 的 HTML 清洗与摘要生成
  *
+ * <h3>功能</h3>
+ * - getText：从 HTML 中提取纯文本（去掉所有标签），用于文章列表页的摘要字段
+ * - getSimpleHtml：只保留 b/em/i/strong/u 等基础文本格式标签
+ * - removeHideHtml：移除除 <hide> 之外的所有标签（用于折叠内容预览）
+ * - extractImage：抽取文章中所有 img 标签的 src，用于缩略图展示
+ *
+ * <h3>为什么用 Jsoup 而不是正则表达式？</h3>
+ * Jsoup 是 HTML 解析器，能正确处理各种格式不规范的 HTML，
+ * 比正则表达式更安全、更可靠。
+ * 而且 Jsoup 的 Safelist 提供了白名单过滤机制，可以防止 XSS 攻击。
  */
 public class PreviewTextUtils {
     /**

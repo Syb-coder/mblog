@@ -86,7 +86,7 @@ public class BaseController {
         return (AccountProfile) subject.getPrincipal();
     }
 
-    /* *
+    /**
      * @param profile 待写入 Session 的用户资料
      */
     protected void putProfile(AccountProfile profile) {
@@ -152,11 +152,12 @@ public class BaseController {
         return PageRequest.of(pn - 1, pageSize);
     }
 
-    /* *
+    /**
      * <p>从站点配置中读取 theme 配置项，将视图名拼接为 /{theme}{view} 形式，
      * 便于多主题切换。</p>
      *
      * @param view 视图相对路径（如 /index）
+     * @return 完整视图路径
      */
     protected String view(String view) {
         return "/" + siteOptions.getValue("theme") + view;

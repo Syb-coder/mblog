@@ -11,30 +11,23 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 /**
- * 标签（Tag）数据访问层
- * <p>
- * 对应 Entity：{@link Tag}，主键类型 Long。
- * </p>
+ * 标签数据访问层
  *
+ * <h3>功能</h3>
+ * findByName 用于文章发布时：用户输入标签名 → 查找已有标签 → 存在则复用 / 不存在则新建。
+ * decrementPosts 用于文章删除时回退标签的引用计数（posts > 0 条件防止扣成负数）。
  */
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long>, JpaSpecificationExecutor<Tag> {
 
-    /* *
-     * @param name 标签名
-     * @return 标签记录，未命中返回 null
+    /**
+     * 按标签名精确查找（用于复用已有标签）
      */
     Tag findByName(String name);
 
     /**
-     * 按 ID 集合原子递减标签下文章计数
-     * <p>
-     * 通过 JPQL update 一次性扣减 posts 字段，附加 posts &gt; 0 条件防止计数出现负数；
-     * 用于文章删除 / 解绑标签时回退标签的引用计数。
-     * </p>
-     *
-     * @param ids 标签 ID 集合
-     * @return 受影响行数
+     * 批量扣减标签的文章计数（文章删除时回退）
+     * posts > 0 条件防止扣成负数
      */
     @Modifying
     @Query("update Tag set posts = posts - 1 where id in (:ids) and posts > 0")

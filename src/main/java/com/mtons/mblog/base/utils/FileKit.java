@@ -10,12 +10,17 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * 文件工具类
- * <p>
- * 提供文件类型校验、文件名/后缀解析以及字节数组落盘等通用能力，
- * </p>
+ * 文件工具类 —— 上传文件类型校验与文件名解析
  *
- * @create - 2018/3/9
+ * <h3>功能</h3>
+ * - checkFileType：检查文件后缀是否在白名单中（.gif/.png/.jpg/.jpeg/.bmp）
+ * - getFilename/getSuffix：解析文件名和扩展名
+ * - writeByteArrayToFile：将字节数组写入磁盘（底层委托 commons-io FileUtils）
+ *
+ * <h3>为什么只允许图片格式？</h3>
+ * 这个项目是博客系统，上传场景只有用户头像和文章中嵌入的图片，
+ * 不需要支持 pdf/doc/zip 等其他文件类型。
+ * 限制文件类型也是安全措施，防止上传恶意脚本文件。
  */
 public class FileKit {
     /** 允许上传的图片扩展名白名单 */

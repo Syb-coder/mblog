@@ -6,12 +6,33 @@ import com.mtons.mblog.modules.entity.*;
 import org.springframework.beans.BeanUtils;
 
 /**
- * 实体与视图对象转换工具
- * <p>
- * {@link BeanUtils#copyProperties} 实现浅拷贝，并提供针对用户实体的字段忽略策略，
- * 避免敏感字段（如密码、角色）泄露到前端。
- * </p>
+ * 实体 ↔ 视图对象转换工具
  *
+ * <h3>为什么需要这个类？</h3>
+ * JPA Entity 是持久化层的对象，直接暴露给前端有风险（比如密码字段泄露），
+ * 同时 Entity 有些字段不适合直接展示（如 extend 扩展字段）。
+ * 这个类负责把 Entity 转换成 VO（View Object），给前端安全的、精简的数据。
+ *
+ * <h3>核心功能</h3>
+ * <pre>
+ * Entity（PO）           BeanMapUtils              VO（视图对象）
+ * ┌──────────┐                                     ┌──────────┐
+ * │ User     │  ──copy()──→ 忽略 password,roles  → │ UserVO   │
+ * │          │  ──copyPassport()──→ 提取最小字段  → │ AccountProfile │
+ * ├──────────┤                                     ├──────────┤
+ * │ Post     │  ──copy()──→ 浅拷贝                → │ PostVO   │
+ * ├──────────┤                                     ├──────────┤
+ * │ Comment  │  ──copy()──→ 浅拷贝                → │ CommentVO│
+ * ├──────────┤                                     ├──────────┤
+ * │ Tag      │  ──copy()──→ 浅拷贝                → │ TagVO    │
+ * └──────────┘                                     └──────────┘
+ * </pre>
+ *
+ * <h3>示例：为什么 copy(User) 要忽略密码？</h3>
+ * 假设首页需要显示文章的作者信息，会调用 userService.findByUserId()
+ * 返回 User 实体。如果直接把这个 User 返回给前端，
+ * then 作者密码就会暴露在 HTML/JSON 中。
+ * 通过 BeanMapUtils.copy(User) 转成 UserVO 再返回，密码字段就被跳过了。
  */
 public class BeanMapUtils {
     /**

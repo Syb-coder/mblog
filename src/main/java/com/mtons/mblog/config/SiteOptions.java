@@ -10,20 +10,33 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 站点配置属性 Bean
- * <p>
- * {@link ContextStartup#reloadOptions(boolean)} 将数据库中的配置项同步到此 Map，
- * </p>
- * <p>
- * 关键字段说明：
- * <ul>
- *   <li>{@code controls}：前台功能开关，对应 {@code site.controls.*}</li>
- *   <li>{@code options}：动态配置项 Map，key 为配置键，value 为配置值</li>
- * </ul>
- * </p>
+ * 站点配置属性 Bean —— 对应 application.yml 中 site.* 配置
  *
- * @version 1.0
- * @date 2019/01/18
+ * <h3>职责</h3>
+ * 本类负责承载两类配置信息：
+ * <ol>
+ *   <li><b>静态配置</b>：来自 application.yml 的 site.version / site.location / site.controls 等固定配置项</li>
+ *   <li><b>动态配置</b>：来自数据库 mto_options 表的键值对，通过 ContextStartup.reloadOptions()
+ *       在系统启动时同步到 options 这个 Map 中</li>
+ * </ol>
+ *
+ * <h3>运行机制</h3>
+ * application.yml 中的 site.* 配置通过 @ConfigurationProperties(prefix = "site")
+ * 自动绑定到本对象的字段上。
+ * 数据库中的动态配置则在启动时由 ContextStartup 加载并注入 options Map。
+ * 此后，SiteOptions 对象被作为 FreeMarker 共享变量 "site" 注入所有模板，
+ * 因此模板中可以直接访问 ${site.version}、${site.controls.register} 等。
+ *
+ * <h3>典型配置项</h3>
+ * <pre>
+ * site:
+ *   version: 4.0            # 系统版本号
+ *   location: /data/mblog   # 文件存储根目录
+ *   controls:
+ *     register: true        # 是否开放注册
+ *     post: true            # 是否允许发文
+ *     comment: true         # 是否允许评论
+ * </pre>
  */
 @Configuration
 @ConfigurationProperties(prefix = "site")
@@ -113,8 +126,9 @@ public class SiteOptions {
         return ret;
     }
 
-    /* *
+    /**
      * @param key 配置键
+     * @return 配置项是否存在且非空
      */
     public boolean hasValue(String key) {
         return StringUtils.isNotBlank(options.get(key));

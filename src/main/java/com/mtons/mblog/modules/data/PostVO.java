@@ -10,14 +10,29 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.Serializable;
 
 /**
- * 文章视图对象 PostVO。
- * <p>
- * 继承自 {@link Post}，扩展出编辑器类型、正文内容、作者、栏目及扩展属性等视图层字段，
- * 用于在 Controller 与前端之间传递完整文章信息。
- * </p>
- * attribute 字段通过 {@link JSONField}(serialize = false) 标注禁止序列化，
- * 避免循环引用及冗余数据传输。
+ * 文章视图对象 —— 给前端看的完整文章数据
  *
+ * <h3>为什么需要 PostVO 而不是直接用 Post 实体？</h3>
+ * Post 实体只包含文章的基本字段（标题、摘要、发布时间等），
+ * 它的两大数据：
+ * 1. 正文内容（content）—— 存在 PostAttribute 表中（一对一的扩展表）
+ * 2. 作者信息（author）—— 需要关联 User 表查询
+ *
+ * PostVO 把 Post + PostAttribute + User 三合一，
+ * Controller/前端拿到一个 PostVO 就能渲染文章页面，
+ * 不用再分别查询。
+ *
+ * <h3>继承而不是组合？</h3>
+ * PostVO extends Post，这意味着 PostVO 有 Post 的所有字段（title, summary, created 等），
+ * 再加上自己扩展的 content, editor, author, channel, attribute。
+ *
+ * 这种"继承-扩展"模式在 Java 的 VO 层比较常见，
+ * 比在 Post 实体里直接加 VO 字段更容易维护。
+ *
+ * <h3>attribute 字段为什么标记 JSONField(serialize = false)？</h3>
+ * PostAttribute 包含了 markdown 原始文本等大数据，在列表页序列化为 JSON 时
+ * 不需要这些数据（列表页只需要 Post 的基本字段），标记排除可以减小响应体积。
+ * 同时避免 PostAttribute → Post → PostVO 的循环引用问题。
  */
 public class PostVO extends Post implements Serializable {
 	private static final long serialVersionUID = -1144627551517707139L;

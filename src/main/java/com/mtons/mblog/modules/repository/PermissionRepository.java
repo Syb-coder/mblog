@@ -19,16 +19,15 @@ import java.util.Set;
  */
 public interface PermissionRepository extends JpaRepository<Permission, Long>, JpaSpecificationExecutor<Permission> {
 
-    /* *
+    /**
      * @param parentId 父权限 ID
+     * @param sort     排序规则
      * @return 子权限列表
      */
     List<Permission> findAllByParentId(int parentId, Sort sort);
 
     /**
      * 统计指定权限被角色引用的次数（即被多少角色分配了该权限）
-     * <p>
-     * </p>
      *
      * @param permId 权限 ID
      * @return 引用该权限的角色数量

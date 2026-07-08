@@ -19,27 +19,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 /**
- * 账户 Realm：mblog 自定义的 Shiro 安全数据源。
- * <p>
- * 该 Realm 同时承担两类职责：
- * <ul>
- *   <li>认证（Authentication）：根据 {@link UsernamePasswordToken} 提供的用户名/密码，
- *       委托 {@link UserService#login} 完成账户校验，并构建 {@link AccountProfile}
- *       作为登录态主体。</li>
- *   <li>授权（Authorization）：根据当前登录用户的角色列表，加载其拥有的角色与权限，
- *       供 Shiro 的权限/角色校验使用。</li>
- * </ul>
- * </p>
- * <p>
- * <b>支持的 Token 类型</b>：仅处理 {@link UsernamePasswordToken}，由构造方法通过
- * {@link #setAuthenticationTokenClass} 限定。
- * </p>
- * <p>
- * <b>密码校验机制</b>：构造时通过 {@link AllowAllCredentialsMatcher} 关闭 Shiro 默认的
- * 密码比对逻辑——真正的用户名/密码校验下沉至业务层
- * {@link UserService#login(String, String)} 完成，Realm 仅负责将业务层返回的
- * {@link AccountProfile} 装配为 {@link SimpleAuthenticationInfo}。
- * </p>
+ * Shiro Realm —— 博客系统的"认证"与"授权"数据源
+ *
+ * <h3>Realm 是什么？</h3>
+ * 在 Shiro 中，Realm 是一个"桥梁"，它告诉 Shiro 如何从应用程序的数据源
+ * （这里就是数据库）获取用户信息和权限信息来做安全判断。
+ *
+ * <h3>两个核心方法</h3>
+ * <ol>
+ *   <li><b>doGetAuthenticationInfo</b> —— 认证（登录验证）
+ *     <br>收到用户的用户名/密码后，调用 UserService.login() 去数据库核验。
+ *     如果密码正确，返回一个包含用户信息的 AuthenticationInfo 给 Shiro，
+ *     Shiro 会把这个用户标记为"已登录"。</li>
+ *   <li><b>doGetAuthorizationInfo</b> —— 授权（权限判断）
+ *     <br>当用户访问需要特定权限的页面（如 /admin/post/list）时，
+ *     Shiro 调用此方法获取用户的角色和权限列表，然后判断是否允许访问。</li>
+ * </ol>
+ *
+ * <h3>密码校验逻辑</h3>
+ * 注意：构造方法中使用了 AllowAllCredentialsMatcher，意思是"跳过 Shiro 默认的
+ * 密码比对"。为什么？因为真正的密码校验逻辑在 UserService.login() 中，
+ * 该方法会先查数据库找到用户，然后用 MD5 比对密码。所以 Realm 不需要再做一次比对。
+ *
+ * <h3>工作流程</h3>
+ * <pre>
+ * 用户登录：
+ *   LoginController → Subject.login(token)
+ *     → AccountRealm.doGetAuthenticationInfo()
+ *       → UserService.login(username, password)
+ *         → UserRepository.findByUsername() + MD5 校验
+ *     → 成功→返回 AuthenticationInfo → 登录成功
+ *
+ * 用户访问后台：
+ *   Shiro 过滤链拦截 /admin/post/list
+ *     → AccountRealm.doGetAuthorizationInfo()
+ *       → UserRoleService.listRoles(userId)
+ *         → 返回角色列表 + 权限列表
+ *     → 检查是否包含 post:list 权限
+ *     → 有→放行，无→拒绝并返回 401
+ * </pre>
  */
 public class AccountRealm extends AuthorizingRealm {
     @Autowired

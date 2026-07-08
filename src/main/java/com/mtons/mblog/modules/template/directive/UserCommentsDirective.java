@@ -1,4 +1,4 @@
-/* *
+/**
  */
 package com.mtons.mblog.modules.template.directive;
 

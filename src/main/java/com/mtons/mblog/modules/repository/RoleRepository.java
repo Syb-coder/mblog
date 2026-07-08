@@ -15,7 +15,7 @@ import java.util.Set;
  */
 public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
 
-    /* *
+    /**
      * @param status 角色状态（启用 / 禁用）
      * @return 符合状态条件的角色列表
      */

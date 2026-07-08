@@ -1,21 +1,24 @@
 @echo off
-chcp 65001 >nul 2>&1
 REM ============================================================
-REM mblog åšå®¢ç³»ç»Ÿä¸€é”®å¯åŠ¨è„šæœ¬ï¼ˆWindows æ‰¹å¤„ç†ç‰ˆï¼‰
-REM æœ¬è„šæœ¬è°ƒç”¨ start.ps1 å®Œæˆå¯åŠ¨æµç¨‹
+REM mblog ²©¿ÍÏµÍ³Ò»¼üÆô¶¯½Å±¾£¨Windows Åú´¦ÀíÈë¿Ú£©
+REM ±¾½Å±¾µ÷ÓÃ start.ps1 Íê³ÉÆô¶¯Á÷³Ì
 REM ============================================================
 
 cd /d "%~dp0"
 
-REM æ£€æŸ¥ PowerShell æ‰§è¡Œç­–ç•¥ï¼Œå¦‚å—é™åˆ™ä¸´æ—¶ç»•è¿‡
-powershell -Command "if ((Get-ExecutionPolicy -Scope CurrentUser) -eq 'Restricted') { Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force }"
+REM ¼ì²é PowerShell Ö´ĞĞ²ßÂÔ£¬ÈçÊÜÏŞÔòÁÙÊ±·Å¿í
+powershell -NoProfile -Command "if ((Get-ExecutionPolicy -Scope CurrentUser) -eq 'Restricted') { Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force }"
 
-REM è°ƒç”¨ PowerShell å¯åŠ¨è„šæœ¬
+REM µ÷ÓÃ PowerShell Æô¶¯½Å±¾£¬´«µİËùÓĞÃüÁîĞĞ²ÎÊı
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0start.ps1" %*
+set EXITCODE=%ERRORLEVEL%
 
-REM å¦‚æœ PowerShell é€€å‡ºç é 0ï¼Œæš‚åœä»¥æŸ¥çœ‹é”™è¯¯
-if %ERRORLEVEL% neq 0 (
-    echo.
-    echo [å¯åŠ¨å¤±è´¥] è¯·æŸ¥çœ‹ä¸Šæ–¹é”™è¯¯ä¿¡æ¯
-    pause
+REM ÎŞÂÛ³É¹¦Ê§°Ü¶¼ÔİÍ££¬±ÜÃâ´°¿ÚÁ¢¼´¹Ø±Õµ¼ÖÂ¿´²»µ½Êä³ö
+echo.
+if %EXITCODE% equ 0 (
+    echo [Æô¶¯½áÊø] Ó¦ÓÃÒÑÍ£Ö¹ÔËĞĞ
+) else (
+    echo [Æô¶¯Ê§°Ü] ÍË³öÂë %EXITCODE%£¬Çë²é¿´ÉÏ·½´íÎóĞÅÏ¢
 )
+pause
+exit /b %EXITCODE%

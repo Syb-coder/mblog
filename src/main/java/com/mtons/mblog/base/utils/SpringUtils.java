@@ -5,14 +5,20 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * Spring 容器工具
- * <p>
- * 通过实现 {@link ApplicationContextAware} 持有 Spring 应用上下文，
- * 提供静态方法在非 Spring 管理的类中获取 Bean，便于工具类或动态实例访问容器。
- * </p>
+ * Spring 容器工具 —— 在非 Spring Bean 中获取 Spring Bean
  *
- * @version : 1.0
- * @date : 2020/3/26
+ * <h3>为什么需要这个类？</h3>
+ * 在 Java Spring 项目中，只有被 @Component/@Service/@Controller 标注的类
+ * 才能使用 @Autowired 注入其他 Bean。但有些工具类、工厂类不是 Spring Bean，
+ * 它们也需要访问 Service 层的方法。
+ *
+ * SpringUtils 实现了 ApplicationContextAware 接口，在 Spring 启动时拿到
+ * ApplicationContext 并缓存为静态变量，供任何地方调用。
+ *
+ * <h3>典型使用场景</h3>
+ * CommentComplementor 不是 Spring Bean（由 static of() 创建），
+ * 但需要调用 UserService.findMapByIds()，使用方式：
+ * SpringUtils.getBean(UserService.class).findMapByIds(userIds)
  */
 @Component
 public class SpringUtils implements ApplicationContextAware {

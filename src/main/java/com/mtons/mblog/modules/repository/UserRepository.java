@@ -14,33 +14,37 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 用户（User）数据访问层
- * <p>
- * 对应 Entity：{@link User}，主键类型 Long。
- * 以及用户文章数、评论数的原子递增更新能力。
- * </p>
+ * 用户数据访问层
  *
+ * <h3>功能</h3>
+ * 除了 JpaRepository 提供的标准 CRUD 外，还包含：
+ * 1. 按用户名/邮箱精确查找（用于登录校验和注册判重）
+ * 2. 原子 update 用户维度的文章数/评论数（配合 PostServiceImpl 的发布/删除流程）
+ *
+ * <h3>为什么用原字 update 而不是先查询再 set？</h3>
+ * 和 PostRepository 同样的原因：高并发场景下防止计数丢失，
+ * 以及减少一次数据库查询。
+ *
+ * <h3>批量 updateComments vs 单个 updatePosts</h3>
+ * 发布/删除文章只影响一个用户，所以 updatePosts 按单用户更新。
+ * 发表/删除评论可能涉及多个用户（回复场景），所以 updateComments 支持 ID 集合批量更新。
  */
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-    /* *
+    /**
+     * 按用户名查找（登录校验）
      * @param username 用户名
-     * @return 用户记录，未命中返回 null
      */
     User findByUsername(String username);
 
-    /* *
+    /**
+     * 按邮箱查找（注册判重）
      * @param email 邮箱地址
-     * @return 用户记录，未命中返回 null
      */
     User findByEmail(String email);
 
     /**
-     * 原子递增用户的文章数计数
-     * <p>
-     * :increment 可为负值用于文章删除回退场景。
-     * </p>
-     *
+     * 原子更新用户文章计数
      * @param id        用户 ID
      * @param increment 增量（可为负）
      * @return 受影响行数
@@ -50,12 +54,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     int updatePosts(@Param("id") long id, @Param("increment") int increment);
 
     /**
-     * 按 ID 集合原子递增用户的评论数计数
-     * <p>
-     * 通过 JPQL update 一次性累加 comments 字段，支持批量用户场景；
-     * :increment 可为负值用于评论删除回退场景。
-     * </p>
-     *
+     * 批量原子更新用户评论计数
      * @param ids       用户 ID 集合
      * @param increment 增量（可为负）
      * @return 受影响行数

@@ -10,18 +10,27 @@ import org.springframework.stereotype.Component;
 import java.io.Writer;
 
 /**
+ * 布局区块指令：在父布局模板中定义可被子页面替换/追加/前置的区块。
+ * <p>
+ * 与 {@link PutDirective} 配合实现模板继承的"插槽"（slot）机制：
+ * <ul>
+ *   <li>父布局中用 {@code <@layout.block name="content">...default...</@layout.block>} 定义区块；</li>
+ *   <li>子页面用 {@code <@layout.put block="content">...override...</@layout.put>} 注入内容；</li>
+ *   <li>注入策略由 {@link PutType} 决定：REPLACE（替换默认）、APPEND（追加）、PREPEND（前置）。</li>
+ * </ul>
+ * </p>
+ * <p>
+ * 实现机制：{@link #execute} 通过 FreeMarker 变量空间读取 Put 指令写入的注入内容，
+ * 若无注入则输出 block 体中的默认内容。
+ * </p>
  * <p>
  * FreeMarker 使用方式：
  * <pre>{@code
  * <@layout.block name="content">
- *     <!-- 默认内容 -->
+ *     <!-- 默认内容，当子页面未注入时显示 -->
  * </@layout.block>
  * }</pre>
- * <p>
- * 支持参数：
- * <ul>
- * </ul>
- * 输出：根据 {@link PutDirective} 注入的内容和 {@link PutType} 策略，
+ * </p>
  *
  * @since 4.0.0
  */
@@ -42,7 +51,14 @@ public class BlockDirective extends TemplateDirective {
         return "layout.block";
     }
 
-    /* *
+    /**
+     * 执行区块逻辑
+     * <p>
+     * 1. 从参数中获取 blockName；
+     * 2. 从 FreeMarker 变量空间读取 Put 指令写入的注入策略与注入内容；
+     * 3. 按策略组合输出默认内容与注入内容。
+     * </p>
+     *
      * @param handler 指令处理器
      * @throws Exception 异常
      */
@@ -57,8 +73,11 @@ public class BlockDirective extends TemplateDirective {
         putType.write(out, bodyResult, putContents);
     }
 
-    /* *
-     * @param handler   指令处理器
+    /**
+     * 获取当前 block 的注入策略
+     * <p>从 FreeMarker 变量空间读取 Put 指令写入的 type 变量。</p>
+     *
+     * @param handler 指令处理器
      * @return 写入策略，未配置时默认 APPEND
      */
     private PutType getPutType(DirectiveHandler handler, String blockName) throws TemplateException {
@@ -70,8 +89,11 @@ public class BlockDirective extends TemplateDirective {
         return PutType.valueOf(putTypeScalar.getAsString());
     }
 
-    /* *
-     * @param handler   指令处理器
+    /**
+     * 获取当前 block 的注入内容
+     * <p>从 FreeMarker 变量空间读取 Put 指令写入的 contents 变量。</p>
+     *
+     * @param handler 指令处理器
      * @return 注入内容，未注入时返回空字符串
      */
     private String getPutContents(DirectiveHandler handler, String blockName) throws TemplateModelException {

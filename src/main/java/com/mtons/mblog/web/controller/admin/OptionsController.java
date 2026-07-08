@@ -14,10 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Map;
 
 /**
- * 后台系统配置管理控制器。
+ * 后台系统配置管理控制器
  *
- * <p>URL 前缀：{@code /admin/options}</p>
- * <p>权限要求：由后台拦截器统一鉴权</p>
+ * <h3>功能</h3>
+ * 管理站点配置项（站点名称、SEO 描述、存储方案、编辑器类型等）。
+ * 配置项以 key-value 形式存储在 Options 表中。
+ *
+ * <h3>关键流程</h3>
+ * update() → 保存配置 → contextStartup.reloadOptions() 重新加载
+ * reloadOptions() → 手动触发配置重载（用于前台直接修改数据库后的同步）
  */
 @Controller
 @RequestMapping("/admin/options")

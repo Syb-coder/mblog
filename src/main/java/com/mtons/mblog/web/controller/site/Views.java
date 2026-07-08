@@ -1,9 +1,32 @@
 package com.mtons.mblog.web.controller.site;
 
 /**
- * 前台视图名常量定义接口。 *
- * {@link #TAG_VIEW} 表示标签详情页。</p>
+ * 前台视图名常量 —— 所有 FreeMarker 页面路径集中管理
  *
+ * <h3>为什么需要这个接口？</h3>
+ * 项目用了 FreeMarker 模板引擎渲染前端页面，Controller 方法返回的字符串
+ * 就是模板文件的路径（如 "/auth/login" 对应 templates/auth/login.ftl）。
+ *
+ * 如果不集中管理，这些路径字符串会散落在各个 Controller 里：
+ * <pre>
+ * // 散落写法
+ * return "/auth/login";
+ * return "/index";
+ * return "/user/method_posts";
+ *
+ * // 集中管理后
+ * return Views.LOGIN;
+ * return Views.INDEX;
+ * return String.format(Views.USER_METHOD_TEMPLATE, Views.METHOD_POSTS);
+ * </pre>
+ *
+ * <h3>模板文件在哪里？</h3>
+ * src/main/resources/templates/ 目录下，与这些常量路径一一对应。
+ * 例如 LOGIN = "/auth/login" → templates/auth/login.ftl
+ *
+ * <h3>REDIRICT_ 前缀的常量</h3>
+ * "redirect:" 开头的是 Spring 重定向指令，不是模板路径。
+ * Controller 返回 "redirect:/index" 时，浏览器会跳转到 /index 这个 URL。
  */
 public interface Views {
     String LOGIN = "/auth/login";

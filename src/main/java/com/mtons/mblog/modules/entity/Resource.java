@@ -9,24 +9,29 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 资源 Entity
- * <p>
- * 业务含义：每次上传文件计算 MD5 签名并入库，通过 {@code md5} 唯一约束去重，
- * {@link PostResource} 通过 {@code resource_id} 关联到本表主键。
- * </p>
+ * 资源实体 —— 对应数据库表 mto_resource
  *
- * <p>关键约束：
+ * <h3>业务含义</h3>
+ * 记录每一个上传到系统的文件。每次上传文件时，系统会计算文件的 MD5 值，
+ * 然后先查询 Resource 表是否已有同 MD5 的记录：
+ * - 如果有（文件已存在），则 amount+1（增加引用计数）
+ * - 如果没有，则创建新记录
+ * 这样实现了文件去重：即使同一张图片被十篇文章引用，磁盘上只存一份。
+ *
+ * <h3>资源引用生命周期</h3>
+ * <pre>
+ * 用户上传图片 → Resource 表新增/计数+1 → PostResource 新增关联
+ * 文章删除      → PostResource 删除关联 → Resource.amount-1
+ * amount=0     → 资源不再被引用，可被清理
+ * </pre>
+ *
+ * <h3>关键字段</h3>
  * <ul>
- *   <li>{@code md5} 通过 {@link UniqueConstraint}（约束名 {@code UK_MD5}）建立唯一约束，
- *       用于文件去重。</li>
- *   <li>{@code amount} 记录资源被引用次数，便于统计与清理。</li>
- *   <li>{@code create_time} / {@code update_time} 由数据库生成，
- *       通过 {@link Generated} 让 ORM 回读。</li>
+ *   <li>md5 —— 文件内容的 MD5 摘要，加唯一约束实现去重</li>
+ *   <li>path —— 文件的存储路径（相对路径，基于 site.location 配置）</li>
+ *   <li>amount —— 该资源被多少篇文章引用，0 表示可回收</li>
+ *   <li>create_time / update_time —— 由数据库自动生成和更新（@Generated 注解回读）</li>
  * </ul>
- * </p>
- *
- * <p>注：使用 Lombok {@link Data} 自动生成 getter/setter。</p>
- *
  */
 @Data
 @Entity

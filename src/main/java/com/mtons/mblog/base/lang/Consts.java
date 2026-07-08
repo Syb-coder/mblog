@@ -1,4 +1,17 @@
-/* *
+/*
+ * base/lang/Consts.java
+ *
+ * 本文件是整个项目的"常量字典"，集中管理所有用到的魔数（Magic Number）
+ * 和字符串常量。这样做的好处：
+ *   1. 一处修改，全局生效
+ *   2. 给常量起个有意义的名称，比散落的数字更可读
+ *   3. 方便新人快速了解系统有哪些"边界值"
+ *
+ * 阅读提示：
+ * - 先看接口级别的静态常量（路径、状态码、排序方式）
+ * - 再关注内部接口 order（文章排序选项）
+ * - 最后看缓存名和配置项键名（用于 Ehcache 和数据库 options 表）
+ *   这些键名会出现在 OptionsServiceImpl 和 SiteOptions 中
  */
 package com.mtons.mblog.base.lang;
 
@@ -6,8 +19,24 @@ package com.mtons.mblog.base.lang;
 /**
  * 系统全局常量定义接口
  * <p>
- * 站点可配置项的键名等，避免散落的魔法值，便于统一维护。
+ * 这个接口中定义的常量会被项目各层代码直接引用（如 Consts.SEPARATOR）。
+ * 之所以用接口而非类，是因为接口中的字段默认是 public static final，
+ * 省去了写修饰符的冗余。
  * </p>
+ *
+ * <h3>常量分类速览</h3>
+ * <ul>
+ *   <li>路径常量 → thumbnailPath, avatarPath, AVATAR（文件存储路径）</li>
+ *   <li>分隔符 → SEPARATOR, SEPARATOR_X（标签/尺寸拼接）</li>
+ *   <li>角色标识 → ROLE_ADMIN（Shiro 授权用）</li>
+ *   <li>翻页 → PAGE_DEFAULT_SIZE（列表默认每页条数）</li>
+ *   <li>步进 → IDENTITY_STEP, DECREASE_STEP（计数增减）</li>
+ *   <li>状态 → STATUS_NORMAL, STATUS_LOCKED, STATUS_CLOSED, STATUS_HIDDEN</li>
+ *   <li>排序 → order 内部接口（newest / hottest）</li>
+ *   <li>缓存 → CACHE_USER, CACHE_POST（Ehcache 缓存区域名）</li>
+ *   <li>编辑器 → EDITOR_MARKDOWN</li>
+ *   <li>配置键名 → STORAGE_LIMIT_SIZE 等（对应 mto_options 表）</li>
+ * </ul>
  */
 public interface Consts {
 	/**

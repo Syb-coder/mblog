@@ -95,7 +95,9 @@ public class DirectiveHandler {
         return writer.toString();
     }
 
-    /* *
+    /**
+     * @param key   变量名
+     * @param value 变量值
      * @return 当前处理器，支持链式调用
      */
     public DirectiveHandler put(String key, Object value) throws TemplateModelException {
@@ -175,7 +177,7 @@ public class DirectiveHandler {
         return TemplateModelUtils.converDate(getModel(name));
     }
 
-    /* *
+    /**
      * @param name         参数名
      * @param defaultValue 默认值
      * @return 字符串值
@@ -186,7 +188,7 @@ public class DirectiveHandler {
         return null == result ? defaultValue : result;
     }
 
-    /* *
+    /**
      * @param name         参数名
      * @param defaultValue 默认值
      * @return Integer 值
@@ -197,7 +199,7 @@ public class DirectiveHandler {
         return null == result ? defaultValue : result;
     }
 
-    /* *
+    /**
      * @param name         参数名
      * @param defaultValue 默认值
      * @return Long 值

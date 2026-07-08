@@ -11,31 +11,36 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 资源（Resource）数据访问层
- * <p>
- * 对应 Entity：{@link Resource}，主键类型 Long。
- * 业务职责：管理上传文件资源元数据，支持按 MD5 检索去重、按 MD5/ID 批量调整引用计数，
- * </p>
+ * 资源/文件数据访问层
  *
+ * <h3>功能</h3>
+ * 记录每个上传文件的元信息（MD5、访问路径、引用计数），核心能力：
+ * 1. MD5 去重：上传时先查 MD5，命中则直接复用已有路径（AbstractStorage.writeToStore）
+ * 2. 引用计数管理：amount 字段记录文件被多少篇文章引用，引用归零后可清理
+ * 3. 垃圾清理：find0Before 找出引用计数 <= 0 且超过一定时间的文件，定期清理
+ *
+ * <h3>为什么需要 amount 引用计数？</h3>
+ * 同一张图片可能被多篇文章引用。如果直接删除文件，
+ * 其他文章就会出现图片无法显示。通过引用计数，
+ * 只有所有引用都释放后才能删除物理文件。
+ * 类似于 C++ 的 shared_ptr 或操作系统的硬链接计数。
  */
 public interface ResourceRepository extends JpaRepository<Resource, Long>, JpaSpecificationExecutor<Resource> {
 
-    /* *
+    /**
      * @param md5 文件 MD5 摘要
      * @return 资源记录，未命中返回 null
      */
     Resource findByMd5(String md5);
 
-    /* *
-     * @param md5 MD5 摘要列表
+    /**
+     * @param md5s MD5 摘要列表
      * @return 资源记录列表
      */
-    List<Resource> findByMd5In(List<String> md5);
+    List<Resource> findByMd5In(List<String> md5s);
 
     /**
-     * <p>
-     * </p>
-     *
+     * @param time 截止时间
      * @return 待清理的资源列表
      */
     @Query(value = "SELECT * FROM mto_resource WHERE amount <= 0 AND update_time < :time ", nativeQuery = true)
@@ -69,5 +74,5 @@ public interface ResourceRepository extends JpaRepository<Resource, Long>, JpaSp
      */
     @Modifying
     @Query("update Resource set amount = amount + :increment where id in (:ids)")
-    int updateAmountByIds(@Param("ids") Collection<Long> md5s, @Param("increment") long increment);
+    int updateAmountByIds(@Param("ids") Collection<Long> ids, @Param("increment") long increment);
 }

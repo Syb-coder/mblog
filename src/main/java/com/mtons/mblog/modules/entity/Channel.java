@@ -19,6 +19,8 @@ public class Channel implements Serializable {
 
 	/**
 	 * 主键 ID，使用数据库自增策略生成
+	 * @Id 标记为主键
+	 * @GeneratedValue(strategy = GenerationType.IDENTITY) 表示由数据库自动生成（自增）
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,30 +28,37 @@ public class Channel implements Serializable {
 
 	/**
 	 * 分组名称，最大长度 32 字符
+	 * 对应数据库表字段 name，如"技术"、"生活"等频道名称
 	 */
 	@Column(length = 32)
 	private String name;
 
 	/**
 	 * 唯一关键字，用于 URL 与程序内引用，对应表字段 key_，最大长度 32
+	 * @Column(name = "key_") 映射到数据库的 key_ 字段（下划线是保留字需特殊处理）
+	 * unique = true 表示该字段值必须唯一，不可重复
+	 * 例如：tech、life、qa 等，用于构建 URL 路径
 	 */
 	@Column(name = "key_", unique = true, length = 32)
 	private String key;
 
 	/**
 	 * 预览图 URL，最大长度 128
+	 * 频道的封面图片地址，展示在频道列表页面
 	 */
 	@Column(length = 128)
 	private String thumbnail;
 
 	/**
 	 * 状态：0 表示显示，1 表示隐藏
+	 * 用于控制频道是否在前台展示
 	 */
 	@Column(length = 5)
 	private int status;
 
 	/**
 	 * 排序值，数值越大越靠前
+	 * weight 值越大，在页面显示时排序越靠前
 	 */
 	private int weight;
 

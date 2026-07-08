@@ -25,7 +25,7 @@ public interface RolePermissionRepository extends JpaRepository<RolePermission, 
      */
     int deleteByRoleId(long roleId);
 
-    /* *
+    /**
      * @param roleId 角色 ID
      * @return 关联记录列表
      */

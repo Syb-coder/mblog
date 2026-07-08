@@ -17,12 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**
- * 后台频道管理控制器。
+ * 后台频道/栏目管理控制器
  *
- * <p>URL 前缀：{@code /admin/channel}</p>
- * <p>权限要求：建议配置 {@code @RequiresPermissions("channel:list/update/delete/weight")}，
- * 当前注解已注释，由后台拦截器统一鉴权</p>
+ * <h3>功能</h3>
+ * 栏目 CRUD + 权重调整
  *
+ * <h3>为什么更新频道后要调用 contextStartup.resetChannels()？</h3>
+ * 前台导航菜单的栏目列表在 ContextStartup 启动时缓存到 application 作用域中。
+ * 后台修改栏目后，需要重置这个缓存，前台才能看到最新的栏目列表。
+ * 否则要重启应用才能生效。
  */
 @Controller("adminChannelController")
 @RequestMapping("/admin/channel")
@@ -43,7 +46,7 @@ public class ChannelController extends BaseController {
 		return "/admin/channel/list";
 	}
 
-	/* *
+	/**
 	 * @param id    频道 ID，可为 null（新增场景）
 	 * @param model 视图模型
 	 * @return 视图名 {@code /admin/channel/view}

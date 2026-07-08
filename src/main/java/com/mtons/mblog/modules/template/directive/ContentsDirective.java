@@ -1,4 +1,4 @@
-/* *
+/**
  */
 package com.mtons.mblog.modules.template.directive;
 
@@ -21,23 +21,21 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * <p>
- * FreeMarker 使用方式：
- * <pre>{@code
- * <@contents channelId=1 order="newest" pn=pn>
- *     <#list results.content as row>
- *         ${row.title}
- *     </#list>
- * </@contents>
- * }</pre>
- * <p>
- * 支持参数：
- * <ul>
- *     <li>order：排序方式，如 newest（最新）、hottest（最热）</li>
- *     <li>pageNo：页码</li>
- *     <li>size：每页数量</li>
- * </ul>
- * 输出：results - 分页文章列表
+ * 文章列表指令 —— 最核心的模板指令
+ *
+ * <h3>作用</h3>
+ * 前台的所有文章列表页（首页、栏目页）都通过 &lt;@contents&gt; 指令渲染。
+ * 不用每个 Controller 都去查文章列表，模板里直接用指令即可。
+ *
+ * <h3>参数说明</h3>
+ * - channelId：指定栏目（=0 时显示所有栏目，排除已关闭的）
+ * - order：排序方式（newest / hottest）
+ * - pageNo / size：分页参数
+ *
+ * <h3>为什么未指定栏目时要排除已关闭的？</h3>
+ * 后台管理员可以关闭栏目（status=1）。前台显示"全部文章"时，
+ * 不应该包含已关闭栏目的文章，否则用户通过首页 URL 能访问到
+ * 管理员想隐藏的内容。
  */
 @Component
 public class ContentsDirective extends TemplateDirective {
@@ -56,7 +54,7 @@ public class ContentsDirective extends TemplateDirective {
         return "contents";
     }
 
-    /* *
+    /**
      * @param handler 指令处理器
      * @throws Exception 异常
      */

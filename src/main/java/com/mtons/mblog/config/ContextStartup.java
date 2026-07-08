@@ -21,19 +21,31 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 应用启动上下文初始化器
- * <p>
- * 在 Spring Boot 启动完成后执行，负责将数据库中的站点配置项与频道数据
- * </p>
- * <p>
- * 关键依赖说明：
- * <ul>
- *   <li>{@link OptionsService}：站点配置项的读取与初始化</li>
- *   <li>{@link ChannelService}：频道数据的加载</li>
- * </ul>
- * </p>
+ * 应用启动上下文初始化器 —— 实现 ApplicationRunner 接口
  *
- * @since 3.0
+ * <h3>职责</h3>
+ * 在 Spring Boot 应用启动完成后自动执行，完成两件核心初始化工作：
+ * <ol>
+ *   <li>从数据库加载站点配置（mto_options 表），放入 SiteOptions.options Map</li>
+ *   <li>将频道列表（Channel 表）加载到 ServletContext，供前台导航栏使用</li>
+ * </ol>
+ *
+ * <h3>为什么需要这个类？</h3>
+ * 博客系统允许管理员在后台动态修改配置（如站点名称、注册开关等），
+ * 这些配置存在数据库的 mto_options 表中。每次启动时，需要把这些配置
+ * 从数据库读到内存里，然后注入到 FreeMarker 模板中，让前台页面能展示
+ * 配置后的效果。
+ *
+ * <h3>执行顺序</h3>
+ * 1. ApplicationRunner.run() —— Spring Boot 启动后回调
+ * 2. reloadOptions(true) —— 读取数据库配置到 SiteOptions
+ * 3. resetChannels() —— 加载频道列表到 ServletContext
+ *
+ * <h3>特别说明</h3>
+ * 如果数据库为空（首次启动），会尝试执行 classpath:scripts/schema.sql
+ * 来初始化默认数据。如果初始化失败，说明数据库配置有问题，
+ * 系统会直接退出 JVM（System.exit(1)），因为后续操作都会因为没有
+ * 数据而报空指针异常。
  */
 @Slf4j
 @Order(2)

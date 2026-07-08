@@ -4,11 +4,22 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 资源并发计数锁
- * <p>
- * 基于 {@link ConcurrentHashMap} 与 {@link AtomicInteger} 实现对资源操作的并发计数，
- * </p>
+ * 资源并发锁 —— 防止同一篇文章同时被多人编辑
  *
+ * <h3>为什么需要这个锁？</h3>
+ * 当两个管理员同时编辑同一篇文章时，后保存的人会覆盖先保存的内容。
+ * ResourceLock 使用 ConcurrentHashMap + AtomicInteger 实现了一个轻量级的"编辑锁"，
+ * 用于在进入编辑页面时标记资源正在被编辑，离开时释放标记。
+ *
+ * <h3>和 synchronized / ReentrantLock 的区别</h3>
+ * 传统锁是"互斥"的（阻塞等待），
+ * ResourceLock 是"计数"的（只是记录有多少人在编辑），
+ * 实际的控制逻辑在 Controller 层处理：如果计数 > 1 则提示"该文章正在被 XXX 编辑"。
+ *
+ * <h3>为什么用 ConcurrentHashMap？</h3>
+ * 每篇文章的锁是独立的（key = "POST_OPERATE_{postId}"），
+ * ConcurrentHashMap 保证了并发情况下 Key 级别的线程安全。
+ * AtomicInteger 保证了计数的原子性。
  */
 public class ResourceLock {
 

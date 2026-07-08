@@ -6,19 +6,21 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 /**
- * 文章图片 Entity
- * <p>
- * 对应数据库表 {@code mto_post_resource}，记录文章与图片资源的关联关系及在文章中的排序。
- * 业务含义：一篇文章可关联多张图片，通过 {@code post_id} 关联文章、{@code resource_id}
- * </p>
+ * 文章-资源关联实体 —— 对应数据库表 mto_post_resource
  *
- * <p>关键索引：
- * <ul>
- * </ul>
- * </p>
+ * <h3>业务含义</h3>
+ * 记录文章中使用了哪些上传的资源文件（图片），以及它们在文章中的排序和完整路径。
+ * Post 和 Resource 是多对多关系：一篇文章可以包含多张图片，
+ * 一张图片也可以被多篇文章使用（通过 MD5 去重）。
  *
- * <p>注：使用 Lombok {@link Data} 自动生成 getter/setter。</p>
+ * {@code path} 字段存储图片在文章中的完整 URL 路径，
+ * 而 Resource 表的 path 是文件存储的相对路径。
+ * 两者不同：PostResource.path 包含了域名/主题路径等信息，用于直接在页面上显示。
  *
+ * <h3>sort 字段</h3>
+ * 控制图片在文章中出现的先后顺序。数值越小越靠前。
+ * 目前系统主要通过解析文章正文中的 &lt;img&gt; 标签来提取图片，
+ * sort 字段的值基于图片在正文中出现的顺序自动分配。
  */
 @Data
 @Entity

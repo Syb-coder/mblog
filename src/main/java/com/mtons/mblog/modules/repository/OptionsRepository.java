@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface OptionsRepository extends JpaRepository<Options, Long>, JpaSpecificationExecutor<Options> {
 
-	/* *
+	/**
 	 * @param key 配置项键名
 	 * @return 配置项记录，未命中返回 null
 	 */

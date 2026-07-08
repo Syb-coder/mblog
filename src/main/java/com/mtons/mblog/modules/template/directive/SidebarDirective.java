@@ -8,23 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 侧边栏数据指令
- * <p>
- * FreeMarker 使用方式：
- * <pre>{@code
- * <@sidebar method="latest_posts" size=6>
- *     <#list results as row>
- *         ${row.title}
- *     </#list>
- * </@sidebar>
- * }</pre>
- * <p>
- * 支持参数：
- * <ul>
- *     <li>method：数据获取方式，可选值 latest_posts（最新文章）、hottest_posts（最热文章）、latest_comments（最新评论）</li>
- *     <li>size：返回数据数量（默认 6）</li>
- * </ul>
- * 输出：results - 文章或评论列表
+ * 侧边栏数据指令 —— 最新文章 / 最热文章 / 最新评论
+ *
+ * <h3>为什么用指令而不是 Controller 传入 Model？</h3>
+ * 侧边栏的数据在每个页面都差不多（最新文章、标签云、最新评论），
+ * 如果每个 Controller 都要把这些数据放入 Model，重复代码太多。
+ * 用 &lt;@sidebar&gt; 指令，任何页面想加侧边栏数据就直接在模板里调用。
  */
 @Component
 public class SidebarDirective extends TemplateDirective {

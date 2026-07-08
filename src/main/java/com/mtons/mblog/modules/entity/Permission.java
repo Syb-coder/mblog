@@ -4,20 +4,36 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 /**
- * 权限 Entity
- * <p>
- * 业务含义：定义系统权限点（权限值），供 {@link RolePermission} 关联到角色，
- * 由 Shiro 在鉴权时根据权限值匹配资源访问控制。
- * </p>
+ * 权限实体 —— 对应数据库表 shiro_permission
  *
- * <p>关键约束：
+ * <h3>业务含义</h3>
+ * 定义系统中每一个具体的"权限点"。权限值（name）采用类似 Java 包名的
+ * 层级命名方式，如 "admin:user:list" / "admin:post:delete"。
+ * 这种命名方式支持 Shiro 的权限通配符匹配。
+ *
+ * <h3>权限值命名规范（冒号分隔的三级结构）</h3>
+ * <pre>
+ * 命名空间:资源:操作
+ *    ↑        ↑    ↑
+ *  admin   user   list / delete / edit / view
+ *          post
+ *          comment
+ *          channel
+ *          config
+ * </pre>
+ *
+ * 例如：
+ * - "admin:user:list" —— 查看用户列表
+ * - "admin:user:pwd"  —— 重置用户密码
+ * - "admin:post:delete" —— 删文章除
+ * - "admin:config:edit" —— 修改站点配置
+ *
+ * <h3>关键字段</h3>
  * <ul>
- *       （如 {@code admin:user:list}）。</li>
- *   <li>{@code parent_id} 对应列 {@code parent_id}，{@code updatable = false} 表示创建后不可更新，
- *       用于权限树层级关联。</li>
+ *   <li>parentId —— 父权限 ID，用于构建权限树（顶级权限的 parentId=0）</li>
+ *   <li>name —— 权限值，唯一，如 "admin:user:list"</li>
+ *   <li>version —— @Version 乐观锁，防止并发修改</li>
  * </ul>
- * </p>
- *
  */
 @Entity
 @Table(name = "shiro_permission")

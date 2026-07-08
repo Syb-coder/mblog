@@ -20,24 +20,42 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Apache Shiro 权限管理配置类
- * <p>
- * 负责装配 Shiro 安全体系所需的核心 Bean，包括 Realm、SubjectFactory、
- * 是整个后台权限拦截的入口。
- * </p>
- * <p>
- * 关键 Bean 说明：
- * <ul>
- *   <li>{@link #accountRealm()}：自定义 Realm，承载认证与授权逻辑</li>
- *   <li>{@link #subjectFactory()}：Subject 工厂，用于定制 Subject 创建过程</li>
- *   <li>{@link #shiroFilterFactoryBean(SecurityManager)}：Shiro 过滤器链入口</li>
- * </ul>
- * </p>
- * <p>
- * 通过 {@code shiro.web.enabled} 配置项可整体开关 Shiro 的 Web 集成，默认开启。
- * </p>
+ * Apache Shiro 安全框架配置类
  *
- * @since 3.0
+ * <h3>Shiro 是什么？</h3>
+ * Apache Shiro 是一个 Java 安全框架，提供认证（你是谁？）、授权（你能做什么？）、
+ * 会话管理、加密等功能。相比 Spring Security，Shiro 配置更简洁。
+ *
+ * <h3>本类的作用</h3>
+ * 装配 Shiro 的三个核心组件：
+ * <ol>
+ *   <li><b>Realm</b>（AccountRealm）：告诉 Shiro 如何从数据库查用户信息来做登录验证和权限判断</li>
+ *   <li><b>SubjectFactory</b>：定制 Subject（当前用户）的创建过程</li>
+ *   <li><b>过滤器链（shiroFilterFactoryBean）</b>：定义哪些 URL 需要登录、哪些需要特定权限</li>
+ * </ol>
+ *
+ * <h3>过滤器链规则（重点）</h3>
+ * 在 shiroFilterFactoryBean() 方法中定义了详细的 URL 拦截规则，大致的策略是：
+ * <ul>
+ *   <li>静态资源（/dist/**, /theme/**）→ anon（允许所有访问）</li>
+ *   <li>登录页（/login）→ anon（允许未登录访问）</li>
+ *   <li>用户设置（/settings/**）、发文章（/post/editing）→ authc（必须登录）</li>
+ *   <li>后台管理 → authc + perms（必须登录且拥有特定权限）</li>
+ * </ul>
+ *
+ * <h3>权限配置"字典"</h3>
+ * <pre>
+ * URL                     → 需要的权限
+ * /admin/channel/list     → channel:list    查看频道列表
+ * /admin/channel/update   → channel:update  修改频道
+ * /admin/post/list        → post:list       查看文章列表
+ * /admin/post/delete      → post:delete     删除文章
+ * /admin/user/pwd         → user:pwd        重置用户密码
+ * /admin/options/update   → options:update  修改站点配置
+ * </pre>
+ *
+ * 这些权限值（如 "channel:list"）对应 Permission 表的 name 字段，
+ * 在 AccountRealm.doGetAuthorizationInfo() 中加载并交给 Shiro 做匹配。
  */
 @Configuration
 @ConditionalOnProperty(name = "shiro.web.enabled", matchIfMissing = true)

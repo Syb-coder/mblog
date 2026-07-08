@@ -5,20 +5,47 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户信息 Entity
- * <p>
- * 业务含义：用户主表，{@code posts}、{@code comments} 为冗余统计字段，
- * 通过 {@link UserRole} 关联到角色，构成“用户-角色-权限”鉴权模型。
- * </p>
+ * 用户信息实体 —— 对应数据库表 mto_user
  *
- * <p>关键约束：
+ * <h3>业务含义</h3>
+ * 这是系统的用户主表。用户通过 username + password 登录（密码用 MD5 加密存储）。
+ * 一个用户可以有多个角色（通过 UserRole 中间表），每个角色又关联多个权限
+ * （通过 RolePermission 中间表），构成经典的 RBAC（Role-Based Access Control）
+ * 权限模型。
+ *
+ * <h3>关键字段说明</h3>
  * <ul>
- *   <li>{@code username} 不可空且唯一，长度 64；登录账号业务键。</li>
- *   <li>{@code email} 唯一，长度 64；用于找回密码与通知。</li>
- *   <li>{@code status} 0=正常，其他值表示冻结/禁用等异常状态。</li>
+ *   <li>posts / comments —— 冗余统计字段，记录用户发表的文章数和评论数。
+ *       每次用户发表或删除文章/评论时，由 UserEventService 异步更新。
+ *       采用冗余字段而非 SQL COUNT 的原因：减少 JOIN 查询的开销。</li>
+ *   <li>status —— 用户状态。0=正常，1=禁用。
+ *       禁用的用户无法登录系统。</li>
+ *   <li>lastLogin —— 最后登录时间，由 UserServiceImpl.login() 在每次登录时更新。</li>
  * </ul>
- * </p>
  *
+ * <h3>关联关系</h3>
+ * User (1) ←→ UserRole (N) ←→ Role (N) ←→ RolePermission (N) ←→ Permission (N)
+ *    ↑ 用户              ↑ 用户-角色         ↑ 角色               ↑ 角色-权限       ↑ 权限
+ *
+ * 一个用户可以有多个角色（多对多），一个角色可以有多个权限（多对多）。
+ *
+ * <h3>数据库表结构</h3>
+ * <pre>
+ * mto_user
+ * ├── id          BIGINT       PK, 自增
+ * ├── username    VARCHAR(64)  UNIQUE, NOT NULL  ← 登录账号
+ * ├── password    VARCHAR(64)                      ← MD5 密文
+ * ├── avatar      VARCHAR(255)                     ← 头像 URL
+ * ├── name        VARCHAR(18)                      ← 显示昵称
+ * ├── gender      INT                              ← 0=未知 1=男 2=女
+ * ├── email       VARCHAR(64)  UNIQUE
+ * ├── posts       INT                              ← 冗余：文章数
+ * ├── comments    INT                              ← 冗余：评论数
+ * ├── created     DATETIME
+ * ├── last_login  DATETIME
+ * ├── signature   VARCHAR(255)                     ← 个性签名
+ * └── status      INT                              ← 0=正常 1=禁用
+ * </pre>
  */
 @Entity
 @Table(name = "mto_user")

@@ -16,17 +16,17 @@ import java.util.List;
  */
 public interface UserRoleRepository extends JpaRepository<UserRole, Long>, JpaSpecificationExecutor<UserRole> {
 
-    /* *
+    /**
      * @param userId 用户 ID
      * @return 角色 关联记录列表
      */
     List<UserRole> findAllByUserId(long userId);
 
-    /* *
-     * @param userId 用户 ID 集合
+    /**
+     * @param userIds 用户 ID 集合
      * @return 关联记录列表
      */
-    List<UserRole> findAllByUserIdIn(Collection<Long> userId);
+    List<UserRole> findAllByUserIdIn(Collection<Long> userIds);
 
     /**
      * <p>用于角色删除前判断是否仍被用户引用。</p>

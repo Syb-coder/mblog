@@ -53,9 +53,10 @@ public abstract class BaseMethod implements TemplateMethodModelEx {
         return TemplateModelUtils.converDate(getModel(arguments, index));
     }
 
-    /* *
+    /**
      * @param arguments 参数列表
      * @param index     参数索引
+     * @return 参数模型，索引越界时返回 null
      */
     public TemplateModel getModel(List<TemplateModel> arguments, int index) {
         if (index < arguments.size()) {

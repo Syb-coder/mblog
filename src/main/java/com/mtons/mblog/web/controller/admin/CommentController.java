@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mtons.mblog.modules.service.CommentService;
 
 /**
- * 后台评论管理控制器。
+ * 后台评论管理控制器
  *
- * <p>业务模块：评论（Comment）管理，提供评论列表与批量删除</p>
- * <p>URL 前缀：{@code /admin/comment}</p>
- * <p>权限要求：由后台拦截器统一鉴权</p>
- *
+ * <h3>功能</h3>
+ * 后台评论管理：分页列表 + 批量删除。
+ * 评论的发表在前台 CommentController(site) 处理，后台只负责管理和删除。
  */
 @Controller("adminCommentController")
 @RequestMapping("/admin/comment")

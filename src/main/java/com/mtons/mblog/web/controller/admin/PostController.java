@@ -24,11 +24,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * 后台文章管理控制器。
+ * 后台文章管理控制器
  *
- * <p>URL 前缀：{@code /admin/post}</p>
- * <p>权限要求：由后台拦截器统一鉴权</p>
+ * <h3>功能</h3>
+ * 后台文章 CRUD：列表查询（支持按栏目和标题筛选）、编辑页面、新增/更新提交、批量删除。
  *
+ * <h3>和前台 ChannelController 的区别</h3>
+ * PostController（admin）→ 使用 postService.paging4Admin → 不走 @PostStatusFilter，能看到所有状态
+ * ChannelController（site）→ 使用 postService.paging → 走 @PostStatusFilter，只看正常文章
+ *
+ * <h3>@Controller("adminPostController")</h3>
+ * 这里指定了 Bean 名称，避免和前台同名 Controller（如果有的话）冲突。
  */
 @Controller("adminPostController")
 @RequestMapping("/admin/post")

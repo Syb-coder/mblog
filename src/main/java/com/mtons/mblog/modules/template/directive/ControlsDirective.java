@@ -11,21 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 控制器开关指令
- * <p>
- * FreeMarker 使用方式：
- * <pre>{@code
- * <@controls name="post">
- *     <!-- 当开关开启时渲染此处内容 -->
- * </@controls>
- * }</pre>
- * <p>
- * 支持参数：
- * <ul>
- *     <li>name：控制项名称（对应 SiteOptions 中的配置项）</li>
- * </ul>
- * 输出：当控制项开启时渲染指令体；当控制项为 post 且关闭时，
- * 若当前用户为管理员则仍然渲染指令体。
+ * 功能开关指令 —— 根据配置决定是否渲染某块内容
+ *
+ * <h3>为什么需要这个？</h3>
+ * 管理员可能想临时关闭"发布文章"功能（比如站点维护期间），
+ * 但又不想影响管理员自己的操作。
+ *
+ * &lt;@controls name="post"&gt; 检查 SiteOptions 中的 controls.post 配置，
+ * 如果为 true 则渲染，如果为 false 则：
+ * - 普通用户：不渲染（看不到发表按钮）
+ * - 管理员：仍然渲染（可以继续发表）
+ *
+ * 这个设计实现了"分级控制"：普通用户受限，管理员不受限。
  */
 @Component
 public class ControlsDirective extends TemplateDirective {
