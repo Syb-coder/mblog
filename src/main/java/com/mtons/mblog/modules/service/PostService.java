@@ -102,12 +102,12 @@ public interface PostService {
 
 	// @CacheEvict(key = "'view_' + #id")：仅驱逐该文章浏览数缓存
 	// identityViews：累加文章浏览计数（每次访问 +1）
-	@CacheEvict(key = "'view_' + #id)
+	@CacheEvict(key = "'view_' + #id")
 	void identityViews(long id);
 
 	// @CacheEvict(key = "'view_' + #id")：仅驱逐该文章评论数缓存
 	// identityComments：累加文章评论计数（每条评论 +1）
-	@CacheEvict(key = "'view_' + #id)
+	@CacheEvict(key = "'view_' + #id")
 	void identityComments(long id);
 
 	// count：统计文章总数，用于仪表盘展示

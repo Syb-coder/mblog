@@ -93,7 +93,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         // 创建最终返回映射：key 为用户 ID，value 为角色详情列表
         Map<Long, List<Role>> ret = new HashMap<>();
         // 遍历中间映射，将角色 ID 替换为角色详情对象
-        map.forEach((k, v) => {
+        map.forEach((k, v) -> {
             // 通过角色服务批量查询角色详情，转为列表存入最终映射
             ret.put(k, new ArrayList<>(roleService.findByIds(v).values()));
         });

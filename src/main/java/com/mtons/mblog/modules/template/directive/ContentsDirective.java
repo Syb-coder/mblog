@@ -10,6 +10,8 @@ import com.mtons.mblog.modules.service.ChannelService;
 import com.mtons.mblog.modules.service.PostService;
 import com.mtons.mblog.modules.template.DirectiveHandler;
 import com.mtons.mblog.modules.template.TemplateDirective;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +41,8 @@ import java.util.Set;
  */
 @Component
 public class ContentsDirective extends TemplateDirective {
+    private static final Logger log = LoggerFactory.getLogger(ContentsDirective.class);
+
     @Autowired
     private PostService postService;
     @Autowired
@@ -63,10 +67,14 @@ public class ContentsDirective extends TemplateDirective {
         Integer channelId = handler.getInteger("channelId", 0);
         String order = handler.getString("order", Consts.order.NEWEST);
 
+        // 调试日志：打印接收到的 channelId，用于排查栏目筛选问题
+        log.info("ContentsDirective 收到参数 —— channelId = {}, order = {}", channelId, order);
+
         Set<Integer> excludeChannelIds = new HashSet<>();
 
         // 未指定栏目时，排除所有已关闭的栏目
         if (channelId <= 0) {
+            log.info("ContentsDirective —— channelId <= 0，不进行栏目筛选，将查询全部文章");
             List<Channel> channels = channelService.findAll(Consts.STATUS_CLOSED);
             if (channels != null) {
                 channels.forEach((c) -> excludeChannelIds.add(c.getId()));

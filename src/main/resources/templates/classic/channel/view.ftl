@@ -23,6 +23,9 @@
                             ${view.author.name}
                             </a>
                             <abbr class="timeago">${timeAgo(view.created)}</abbr>
+                            <#if view.updated?? && view.updated?string('yyyy-MM-dd HH:mm') != view.created?string('yyyy-MM-dd HH:mm')>
+                            <abbr class="hidden-xs">⋅ 更新于 ${timeAgo(view.updated)}</abbr>
+                            </#if>
                             <abbr>⋅ ${view.views} 阅读</abbr>
                         </div>
                         <div class="clearfix"></div>

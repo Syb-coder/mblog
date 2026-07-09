@@ -68,6 +68,13 @@ public class Options {
 	@Column(length = 300)
 	private String value;
 
+	/**
+	 * 最后修改时间
+	 * 记录配置项最后一次修改的时间
+	 */
+	@Column(name = "updated")
+	private java.util.Date updated;
+
 	public long getId() {
 		return id;
 	}
@@ -98,6 +105,14 @@ public class Options {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public java.util.Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(java.util.Date updated) {
+		this.updated = updated;
 	}
 	
 }

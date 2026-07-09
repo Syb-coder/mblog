@@ -182,6 +182,8 @@ public class CommentServiceImpl implements CommentService {
 		po.setContent(comment.getContent());
 		// 设置创建时间
 		po.setCreated(new Date());
+		// 设置最后修改时间（发布评论时也记录）
+		po.setUpdated(new Date());
 		// 设置父评论 ID（0 表示顶级评论）
 		po.setPid(comment.getPid());
 		// 保存评论到数据库

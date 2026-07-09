@@ -27,6 +27,7 @@
                                 <th>名称</th>
                                 <th>Key</th>
                                 <th>状态</th>
+                                <th>最后修改</th>
                                 <th width="140">操作</th>
                             </tr>
                             </thead>
@@ -43,6 +44,7 @@
                                             隐藏
                                         </#if>
                                     </td>
+                                    <td><#if row.updated??>${row.updated?string('yyyy-MM-dd HH:mm')}<#else>-</#if></td>
                                     <td>
                                         <a href="javascript:void(0);" class="btn btn-xs btn-default" data-id="${row.id}" data-action="weight">置顶</a>
                                         <a href="view?id=${row.id}" class="btn btn-xs btn-success">修改</a>
@@ -107,3 +109,8 @@
     })
 </script>
 </@layout>
+
+
+
+
+

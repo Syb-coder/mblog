@@ -1,11 +1,12 @@
 <@layout.extends name="/inc/layout.ftl">
     <@layout.put block="title">
-        <title>channel.name</title>
+        <title>${channel.name!''} - ${options['site_name']!''}</title>
     </@layout.put>
 
     <@layout.put block="contents">
         <div class="row">
             <div class="col-xs-12 col-md-9 side-left">
+                <!-- 调试：channel.id = ${channel.id!0}, pageNo = ${pageNo!1}, order = ${order!'newest'} -->
                 <@contents channelId=channel.id pageNo=pageNo order=order>
                     <div class="posts">
                         <ul class="posts-list">

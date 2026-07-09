@@ -63,6 +63,13 @@ public class Channel implements Serializable {
 	private int weight;
 
 	/**
+	 * 最后修改时间
+	 * 记录频道最后一次修改的时间，用于后台管理列表展示
+	 */
+	@Column(name = "updated")
+	private java.util.Date updated;
+
+	/**
 	 * 获取主键 ID
 	 * @return 主键 ID
 	 */
@@ -156,5 +163,13 @@ public class Channel implements Serializable {
 	 */
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+
+	public java.util.Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(java.util.Date updated) {
+		this.updated = updated;
 	}
 }

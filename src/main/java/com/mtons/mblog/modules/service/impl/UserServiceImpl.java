@@ -272,6 +272,8 @@ public class UserServiceImpl implements UserService {
         po.setName(user.getName());
         // 更新个性签名
         po.setSignature(user.getSignature());
+        // 更新最后修改时间
+        po.setUpdated(new Date());
         // 保存更新
         userRepository.save(po);
         // 返回更新后的账户概要
@@ -312,6 +314,8 @@ public class UserServiceImpl implements UserService {
         }
         // 更新邮箱
         po.setEmail(email);
+        // 更新最后修改时间
+        po.setUpdated(new Date());
         // 保存更新
         userRepository.save(po);
         // 返回更新后的账户概要
@@ -361,6 +365,8 @@ public class UserServiceImpl implements UserService {
         User po = userRepository.findById(id).get();
         // 更新头像路径
         po.setAvatar(path);
+        // 更新最后修改时间
+        po.setUpdated(new Date());
         // 保存更新
         userRepository.save(po);
         // 返回更新后的账户概要
@@ -385,6 +391,8 @@ public class UserServiceImpl implements UserService {
 
         // 新密码 MD5 散列后存储
         po.setPassword(MD5.md5(newPassword));
+        // 更新最后修改时间
+        po.setUpdated(new Date());
         // 保存更新
         userRepository.save(po);
     }
@@ -409,6 +417,8 @@ public class UserServiceImpl implements UserService {
         Assert.isTrue(MD5.md5(oldPassword).equals(po.getPassword()), "当前密码不正确");
         // 新密码 MD5 散列后存储
         po.setPassword(MD5.md5(newPassword));
+        // 更新最后修改时间
+        po.setUpdated(new Date());
         // 保存更新
         userRepository.save(po);
     }
@@ -427,6 +437,8 @@ public class UserServiceImpl implements UserService {
 
         // 设置新状态（ENABLED=0 正常，DISABLED=1 封禁）
         po.setStatus(status);
+        // 更新最后修改时间
+        po.setUpdated(new Date());
         // 保存更新
         userRepository.save(po);
     }

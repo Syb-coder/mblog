@@ -75,6 +75,11 @@ public class UserVO implements Serializable {
 	private int status;
 
 	/**
+	 * 最后修改时间
+	 */
+	private Date updated;
+
+	/**
 	 * 角色列表（不参与 JSON 序列化，避免权限信息外泄）
 	 */
 	@JSONField(serialize = false)
@@ -270,5 +275,13 @@ public class UserVO implements Serializable {
 	 */
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 }

@@ -111,6 +111,8 @@ public class ChannelServiceImpl implements ChannelService {
 		Channel po = optional.orElse(new Channel());
 		// 将传入的栏目属性拷贝到持久化对象中
 		BeanUtils.copyProperties(channel, po);
+		// 更新最后修改时间
+		po.setUpdated(new Date());
 		// 保存到数据库（JPA 根据 ID 是否存在自动判断 insert/update）
 		channelRepository.save(po);
 	}
@@ -136,6 +138,8 @@ public class ChannelServiceImpl implements ChannelService {
 		}
 		// 设置新的权重值
 		po.setWeight(max);
+		// 更新最后修改时间
+		po.setUpdated(new Date());
 		// 保存更新后的栏目
 		channelRepository.save(po);
 	}

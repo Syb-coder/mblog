@@ -32,6 +32,7 @@
                                 <th>目标Id</th>
                                 <th>作者</th>
                                 <th>发表日期</th>
+                                <th>最后修改</th>
                                 <th width="50">操作</th>
                             </tr>
                             </thead>
@@ -46,6 +47,7 @@
                                     <td>${row.toId}</td>
                                     <td>${row.author.username}</td>
                                     <td>${row.created?string('yyyy-MM-dd')}</td>
+                                    <td><#if row.updated??>${row.updated?string('yyyy-MM-dd HH:mm')}<#else>-</#if></td>
                                     <td>
                                         <a href="javascript:void(0);" class="btn btn-xs btn-primary" data-id="${row.id}"
                                            data-action="delete">删除

@@ -18,4 +18,3 @@ spring:
             hibernate.format_sql: true
             hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
             hibernate.cache.use_second_level_cache: false
-

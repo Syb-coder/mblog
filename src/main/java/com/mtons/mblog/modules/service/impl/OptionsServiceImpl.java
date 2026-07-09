@@ -114,6 +114,8 @@ public class OptionsServiceImpl implements OptionsService {
 				// 设置配置项 value
 				entity.setValue(val);
 			}
+			// 更新最后修改时间
+			entity.setUpdated(new java.util.Date());
 			// 保存配置项（JPA 自动判断 insert/update）
 			optionsRepository.save(entity);
 		});

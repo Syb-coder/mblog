@@ -44,6 +44,7 @@
                                 <th>文章标题</th>
                                 <th width="120">作者</th>
                                 <th width="100">发表日期</th>
+                                <th width="100">最后修改</th>
                                 <th width="60">访问数</th>
                                 <th width="80">发布</th>
                                 <th width="120">操作</th>
@@ -63,6 +64,7 @@
                                     </td>
                                     <td>${row.author.username}</td>
                                     <td>${row.created?string('yyyy-MM-dd')}</td>
+                                    <td><#if row.updated??>${row.updated?string('yyyy-MM-dd HH:mm')}<#else>-</#if></td>
                                     <td><span class="label label-default">${row.views}</span></td>
                                     <td>
                                         <#if (row.status = 0)>

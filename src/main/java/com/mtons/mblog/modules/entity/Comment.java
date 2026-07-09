@@ -65,6 +65,13 @@ public class Comment {
 
     private int status;
 
+    /**
+     * 最后修改时间
+     * 记录评论最后一次修改的时间，用于后台管理列表展示
+     */
+    @Column(name = "updated")
+    private Date updated;
+
     public long getId() {
         return id;
     }
@@ -119,5 +126,13 @@ public class Comment {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }

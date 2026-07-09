@@ -127,6 +127,13 @@ public class User implements Serializable {
 	 */
 	private int status;
 
+	/**
+	 * 最后修改时间
+	 * 记录用户信息最后一次修改的时间，用于后台管理列表展示
+	 */
+	@Column(name = "updated")
+	private Date updated;
+
 	public User() {
 
 	}
@@ -237,5 +244,13 @@ public class User implements Serializable {
 
 	public void setSignature(String signature) {
 		this.signature = signature;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 }

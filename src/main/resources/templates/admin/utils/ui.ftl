@@ -118,7 +118,7 @@
         <!-- To the right -->
         <div class="pull-right hidden-xs">${site.version}</div>
         <!-- Default to the left -->
-        <strong>版权所有 &copy; 2019</strong> 保留所有权利。
+        <strong>版权所有 &copy; 2026</strong> 保留所有权利。
     </footer>
 </body>
 </html>

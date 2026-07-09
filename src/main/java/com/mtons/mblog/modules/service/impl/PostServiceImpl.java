@@ -25,6 +25,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.ListUtils;
 // 导入 Apache Commons 字符串工具类
 import org.apache.commons.lang3.StringUtils;
+// 导入 SLF4J 日志门面
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 // 导入 Spring Bean 属性拷贝和自动注入
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,6 +138,9 @@ public class PostServiceImpl implements PostService {
     // pattern：预编译正则表达式，用于从正文中提取图片签名（md5），格式如 /_signature/xxxxx.jpg
     private static Pattern pattern = Pattern.compile("(?<=/_signature/)(.+?)(?=\\.)");
 
+    // 日志记录器
+    private static final Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
+
 	/**
 	 * <p>动态拼接 channelId 与排除栏目条件，{@link PostStatusFilter} 切面负责过滤不展示状态的文章。</p>
 	 */
@@ -144,8 +150,11 @@ public class PostServiceImpl implements PostService {
 	@PostStatusFilter
 	// paging：前台分页查询文章，支持按栏目过滤和排除指定栏目集合
 	public Page<PostVO> paging(Pageable pageable, int channelId, Set<Integer> excludeChannelIds) {
-		// 使用 JPA Criteria 动态构建查询条件
-		Page<Post> page = postRepository.findAll((root, query, builder) -> {
+        // 调试日志：打印分页查询参数
+        log.info("PostServiceImpl.paging —— channelId = {}, excludeChannelIds = {}", channelId, excludeChannelIds);
+
+        // 使用 JPA Criteria 动态构建查询条件
+        Page<Post> page = postRepository.findAll((root, query, builder) -> {
 			// 创建空 conjunction 条件
 			Predicate predicate = builder.conjunction();
 
@@ -289,6 +298,8 @@ public class PostServiceImpl implements PostService {
 
 		// 设置创建时间
 		po.setCreated(new Date());
+		// 设置最后修改时间
+		po.setUpdated(new Date());
 		// 设置文章状态
 		po.setStatus(post.getStatus());
 
@@ -408,6 +419,9 @@ public class PostServiceImpl implements PostService {
 
                     // 更新标签字符串
                     po.setTags(p.getTags());//标签
+
+                    // 更新最后修改时间
+                    po.setUpdated(new Date());
 
                     // 读取旧正文内容，用于后续比对图片引用增量
                     Optional<PostAttribute> attributeOptional = postAttributeRepository.findById(po.getId());
@@ -568,7 +582,7 @@ public class PostServiceImpl implements PostService {
 		}
 
 		// 使用 JPA Criteria 动态构建查询条件
-		Page<Post> page = postRepository.findAll((root, query, builder) => {
+		Page<Post> page = postRepository.findAll((root, query, builder) -> {
 			// 创建空 conjunction 条件
 			Predicate predicate = builder.conjunction();
 			// 如果有需要排除的栏目

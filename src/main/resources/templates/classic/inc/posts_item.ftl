@@ -21,6 +21,9 @@
                         </li>
                         <li class="ico-cat"><@utils.showChannel row/></li>
                         <li class="ico-time"><i class="icon-clock"></i>${timeAgo(row.created)}</li>
+                        <#if row.updated?? && row.updated?string('yyyy-MM-dd') != row.created?string('yyyy-MM-dd')>
+                        <li class="ico-time hidden-xs"><i class="icon-note"></i>更新于 ${timeAgo(row.updated)}</li>
+                        </#if>
                         <li class="ico-eye hidden-xs"><i class="icon-book-open"></i>${row.views}</li>
                         <li class="ico-like hidden-xs"><i class="icon-bubble"></i>${row.comments}</li>
                     </ul>
@@ -44,8 +47,9 @@
                         </li>
                         <li class="ico-cat"><@utils.showChannel row/></li>
                         <li class="ico-time"><i class="icon-clock"></i>${timeAgo(row.created)}</li>
-                        <li class="ico-eye hidden-xs"><i class="icon-book-open"></i>${row.views}</li>
-                        <li class="ico-like hidden-xs"><i class="icon-bubble"></i>${row.comments}</li>
+                        <#if row.updated?? && row.updated?string('yyyy-MM-dd') != row.created?string('yyyy-MM-dd')>
+                        <li class="ico-time hidden-xs"><i class="icon-note"></i>更新于 ${timeAgo(row.updated)}</li>
+                        </#if>
                     </ul>
                 </div>
             </div>

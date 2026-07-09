@@ -169,6 +169,19 @@ public class Post implements Serializable {
 	private int weight;
 
 	/**
+	 * 收藏数（已废弃，保留字段以兼容数据库表结构）
+	 */
+	@Column(columnDefinition = "int(11) NOT NULL DEFAULT '0'")
+	private int favors;
+
+	/**
+	 * 最后修改时间
+	 * 记录文章最后一次被修改的时间，用于前端列表展示"最后更新时间"
+	 */
+	@Temporal(value = TemporalType.TIMESTAMP)
+	private Date updated;
+
+	/**
 	 * 获取主键ID
 	 * @return 主键ID
 	 */
@@ -362,5 +375,37 @@ public class Post implements Serializable {
 	 */
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+
+	/**
+	 * 获取收藏数（已废弃）
+	 * @return 收藏数
+	 */
+	public int getFavors() {
+		return favors;
+	}
+
+	/**
+	 * 设置收藏数（已废弃）
+	 * @param favors 收藏数
+	 */
+	public void setFavors(int favors) {
+		this.favors = favors;
+	}
+
+	/**
+	 * 获取最后修改时间
+	 * @return 最后修改时间
+	 */
+	public Date getUpdated() {
+		return updated;
+	}
+
+	/**
+	 * 设置最后修改时间
+	 * @param updated 最后修改时间
+	 */
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 }

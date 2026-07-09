@@ -33,6 +33,7 @@
                                 <th>邮箱</th>
                                 <th>角色</th>
                                 <th>状态</th>
+                                <th>最后修改</th>
                                 <th width="300"></th>
                             </tr>
                             </thead>
@@ -55,6 +56,7 @@
                                             <span class="label label-default">禁用</span>
                                         </#if>
                                     </td>
+                                    <td><#if row.updated??>${row.updated?string('yyyy-MM-dd HH:mm')}<#else>-</#if></td>
                                     <td class="text-center">
                                         <#if row.id != 1>
                                             <#if row.status == 0>

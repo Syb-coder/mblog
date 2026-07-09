@@ -38,7 +38,7 @@ import org.springframework.stereotype.Service;
 // 导入 Spring 事务注解
 import org.springframework.transaction.annotation.Transactional;
 // 导入 Spring 断言工具
-import org.springframework.Assert;
+import org.springframework.util.Assert;
 
 // 导入 Java 工具类包
 import java.util.*;
