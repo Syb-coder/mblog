@@ -14,27 +14,27 @@
 
 ### 删除文件
 ```
-src/main/java/com/mtons/mblog/shiro/tags/              (14 个文件)
-src/main/java/com/mtons/mblog/modules/hook/             (7 个文件)
-src/main/java/com/mtons/mblog/modules/event/            (2 个文件)
-src/main/java/com/mtons/mblog/modules/entity/Favorite.java
-src/main/java/com/mtons/mblog/modules/data/FavoriteVO.java
-src/main/java/com/mtons/mblog/modules/repository/FavoriteRepository.java
-src/main/java/com/mtons/mblog/modules/repository/LinksRepository.java
-src/main/java/com/mtons/mblog/modules/service/FavoriteService.java
-src/main/java/com/mtons/mblog/modules/service/LinksService.java
-src/main/java/com/mtons/mblog/modules/service/PostSearchService.java
-src/main/java/com/mtons/mblog/modules/service/impl/FavoriteServiceImpl.java
-src/main/java/com/mtons/mblog/modules/service/impl/LinksServiceImpl.java
-src/main/java/com/mtons/mblog/modules/service/impl/PostSearchServiceImpl.java
-src/main/java/com/mtons/mblog/modules/entity/Links.java
-src/main/java/com/mtons/mblog/config/SmartCnAnalysisConfigurer.java
-src/main/java/com/mtons/mblog/web/controller/api/ApiController.java
-src/main/java/com/mtons/mblog/web/controller/api/package-info.java
-src/main/java/com/mtons/mblog/web/controller/site/SearchController.java
-src/main/java/com/mtons/mblog/web/controller/site/user/FavorController.java
-src/main/java/com/mtons/mblog/modules/template/directive/LinksDirective.java
-src/main/java/com/mtons/mblog/modules/template/directive/UserFavoritesDirective.java
+src/main/java/com/sunblog/shiro/tags/              (14 个文件)
+src/main/java/com/sunblog/modules/hook/             (7 个文件)
+src/main/java/com/sunblog/modules/event/            (2 个文件)
+src/main/java/com/sunblog/modules/entity/Favorite.java
+src/main/java/com/sunblog/modules/data/FavoriteVO.java
+src/main/java/com/sunblog/modules/repository/FavoriteRepository.java
+src/main/java/com/sunblog/modules/repository/LinksRepository.java
+src/main/java/com/sunblog/modules/service/FavoriteService.java
+src/main/java/com/sunblog/modules/service/LinksService.java
+src/main/java/com/sunblog/modules/service/PostSearchService.java
+src/main/java/com/sunblog/modules/service/impl/FavoriteServiceImpl.java
+src/main/java/com/sunblog/modules/service/impl/LinksServiceImpl.java
+src/main/java/com/sunblog/modules/service/impl/PostSearchServiceImpl.java
+src/main/java/com/sunblog/modules/entity/Links.java
+src/main/java/com/sunblog/config/SmartCnAnalysisConfigurer.java
+src/main/java/com/sunblog/web/controller/api/ApiController.java
+src/main/java/com/sunblog/web/controller/api/package-info.java
+src/main/java/com/sunblog/web/controller/site/SearchController.java
+src/main/java/com/sunblog/web/controller/site/user/FavorController.java
+src/main/java/com/sunblog/modules/template/directive/LinksDirective.java
+src/main/java/com/sunblog/modules/template/directive/UserFavoritesDirective.java
 
 src/main/resources/application-h2.yml
 src/main/resources/application-docker.yml
@@ -182,12 +182,12 @@ git commit -m "perf: remove Flyway database migration"
 **文件:**
 - Modify: `pom.xml`
 - Modify: `src/main/resources/application-dev.yml`
-- Delete: `src/main/java/com/mtons/mblog/modules/service/PostSearchService.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/service/impl/PostSearchServiceImpl.java`
-- Delete: `src/main/java/com/mtons/mblog/config/SmartCnAnalysisConfigurer.java`
-- Delete: `src/main/java/com/mtons/mblog/web/controller/site/SearchController.java`
+- Delete: `src/main/java/com/sunblog/modules/service/PostSearchService.java`
+- Delete: `src/main/java/com/sunblog/modules/service/impl/PostSearchServiceImpl.java`
+- Delete: `src/main/java/com/sunblog/config/SmartCnAnalysisConfigurer.java`
+- Delete: `src/main/java/com/sunblog/web/controller/site/SearchController.java`
 - Delete: `src/main/resources/templates/classic/search.ftl`
-- Modify: `src/main/java/com/mtons/mblog/web/controller/admin/OptionsController.java`
+- Modify: `src/main/java/com/sunblog/web/controller/admin/OptionsController.java`
 
 - [ ] **Step 1: 从 pom.xml 移除搜索相关依赖**
 
@@ -221,17 +221,17 @@ git commit -m "perf: remove Flyway database migration"
             hibernate.search.backend.type: lucene
             hibernate.search.backend.directory.type: local-filesystem
             hibernate.search.backend.directory.root: ${site.location}/storage/indexes
-            hibernate.search.backend.analysis.configurer: com.mtons.mblog.config.SmartCnAnalysisConfigurer
+            hibernate.search.backend.analysis.configurer: com.sunblog.config.SmartCnAnalysisConfigurer
             hibernate.search.backend.lucene_version: LATEST
 ```
 
 - [ ] **Step 3: 删除搜索相关 Java 文件**
 
 ```bash
-Remove-Item src/main/java/com/mtons/mblog/modules/service/PostSearchService.java
-Remove-Item src/main/java/com/mtons/mblog/modules/service/impl/PostSearchServiceImpl.java
-Remove-Item src/main/java/com/mtons/mblog/config/SmartCnAnalysisConfigurer.java
-Remove-Item src/main/java/com/mtons/mblog/web/controller/site/SearchController.java
+Remove-Item src/main/java/com/sunblog/modules/service/PostSearchService.java
+Remove-Item src/main/java/com/sunblog/modules/service/impl/PostSearchServiceImpl.java
+Remove-Item src/main/java/com/sunblog/config/SmartCnAnalysisConfigurer.java
+Remove-Item src/main/java/com/sunblog/web/controller/site/SearchController.java
 ```
 
 - [ ] **Step 4: 删除 search.ftl 模板**
@@ -245,7 +245,7 @@ Remove-Item src/main/resources/templates/classic/search.ftl
 将 `OptionsController.java` 的以下内容：
 
 ```java
-import com.mtons.mblog.modules.service.PostSearchService;
+import com.sunblog.modules.service.PostSearchService;
 
 public class OptionsController extends BaseController {
 	@Autowired
@@ -296,22 +296,22 @@ git commit -m "perf: remove full-text search (Hibernate Search + Lucene)"
 ### Task 4: 移除事件系统
 
 **文件:**
-- Delete: `src/main/java/com/mtons/mblog/modules/event/PostUpdateEvent.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/event/handler/PostUpdateEventHandler.java`
-- Modify: `src/main/java/com/mtons/mblog/modules/service/impl/PostServiceImpl.java`
+- Delete: `src/main/java/com/sunblog/modules/event/PostUpdateEvent.java`
+- Delete: `src/main/java/com/sunblog/modules/event/handler/PostUpdateEventHandler.java`
+- Modify: `src/main/java/com/sunblog/modules/service/impl/PostServiceImpl.java`
 
 - [ ] **Step 1: 删除事件 Java 文件**
 
 ```bash
-Remove-Item src/main/java/com/mtons/mblog/modules/event/PostUpdateEvent.java
-Remove-Item src/main/java/com/mtons/mblog/modules/event/handler/PostUpdateEventHandler.java
+Remove-Item src/main/java/com/sunblog/modules/event/PostUpdateEvent.java
+Remove-Item src/main/java/com/sunblog/modules/event/handler/PostUpdateEventHandler.java
 ```
 
 - [ ] **Step 2: 修改 PostServiceImpl.java**
 
 移除 import：
 ```java
-import com.mtons.mblog.modules.event.PostUpdateEvent;
+import com.sunblog.modules.event.PostUpdateEvent;
 ```
 和
 ```java
@@ -353,16 +353,16 @@ git commit -m "perf: remove event system"
 ### Task 5: 移除收藏功能
 
 **文件:**
-- Delete: `src/main/java/com/mtons/mblog/modules/entity/Favorite.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/data/FavoriteVO.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/repository/FavoriteRepository.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/service/FavoriteService.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/service/impl/FavoriteServiceImpl.java`
-- Delete: `src/main/java/com/mtons/mblog/web/controller/site/user/FavorController.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/template/directive/UserFavoritesDirective.java`
+- Delete: `src/main/java/com/sunblog/modules/entity/Favorite.java`
+- Delete: `src/main/java/com/sunblog/modules/data/FavoriteVO.java`
+- Delete: `src/main/java/com/sunblog/modules/repository/FavoriteRepository.java`
+- Delete: `src/main/java/com/sunblog/modules/service/FavoriteService.java`
+- Delete: `src/main/java/com/sunblog/modules/service/impl/FavoriteServiceImpl.java`
+- Delete: `src/main/java/com/sunblog/web/controller/site/user/FavorController.java`
+- Delete: `src/main/java/com/sunblog/modules/template/directive/UserFavoritesDirective.java`
 - Delete: `src/main/resources/templates/classic/user/method_favorites.ftl`
-- Modify: `src/main/java/com/mtons/mblog/modules/service/PostService.java`
-- Modify: `src/main/java/com/mtons/mblog/modules/service/impl/PostServiceImpl.java`
+- Modify: `src/main/java/com/sunblog/modules/service/PostService.java`
+- Modify: `src/main/java/com/sunblog/modules/service/impl/PostServiceImpl.java`
 - Modify: `src/main/resources/templates/classic/channel/view.ftl`
 - Modify: `src/main/resources/templates/classic/user/method_posts.ftl`
 - Modify: `src/main/resources/templates/classic/inc/user_sidebar.ftl`
@@ -371,13 +371,13 @@ git commit -m "perf: remove event system"
 - [ ] **Step 1: 删除收藏相关 Java 文件**
 
 ```bash
-Remove-Item src/main/java/com/mtons/mblog/modules/entity/Favorite.java
-Remove-Item src/main/java/com/mtons/mblog/modules/data/FavoriteVO.java
-Remove-Item src/main/java/com/mtons/mblog/modules/repository/FavoriteRepository.java
-Remove-Item src/main/java/com/mtons/mblog/modules/service/FavoriteService.java
-Remove-Item src/main/java/com/mtons/mblog/modules/service/impl/FavoriteServiceImpl.java
-Remove-Item src/main/java/com/mtons/mblog/web/controller/site/user/FavorController.java
-Remove-Item src/main/java/com/mtons/mblog/modules/template/directive/UserFavoritesDirective.java
+Remove-Item src/main/java/com/sunblog/modules/entity/Favorite.java
+Remove-Item src/main/java/com/sunblog/modules/data/FavoriteVO.java
+Remove-Item src/main/java/com/sunblog/modules/repository/FavoriteRepository.java
+Remove-Item src/main/java/com/sunblog/modules/service/FavoriteService.java
+Remove-Item src/main/java/com/sunblog/modules/service/impl/FavoriteServiceImpl.java
+Remove-Item src/main/java/com/sunblog/web/controller/site/user/FavorController.java
+Remove-Item src/main/java/com/sunblog/modules/template/directive/UserFavoritesDirective.java
 ```
 
 - [ ] **Step 2: 从 PostService 接口移除 favor/unfavor 方法**
@@ -424,7 +424,7 @@ Remove-Item src/main/java/com/mtons/mblog/modules/template/directive/UserFavorit
 	}
 ```
 
-移除 import `import com.mtons.mblog.modules.service.FavoriteService;`（如果不再被引用）。
+移除 import `import com.sunblog.modules.service.FavoriteService;`（如果不再被引用）。
 
 - [ ] **Step 4: 删除收藏模板文件**
 
@@ -460,20 +460,20 @@ git commit -m "perf: remove favorites feature"
 ### Task 6: 移除友链功能
 
 **文件:**
-- Delete: `src/main/java/com/mtons/mblog/modules/entity/Links.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/repository/LinksRepository.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/service/LinksService.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/service/impl/LinksServiceImpl.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/template/directive/LinksDirective.java`
+- Delete: `src/main/java/com/sunblog/modules/entity/Links.java`
+- Delete: `src/main/java/com/sunblog/modules/repository/LinksRepository.java`
+- Delete: `src/main/java/com/sunblog/modules/service/LinksService.java`
+- Delete: `src/main/java/com/sunblog/modules/service/impl/LinksServiceImpl.java`
+- Delete: `src/main/java/com/sunblog/modules/template/directive/LinksDirective.java`
 
 - [ ] **Step 1: 删除友链相关 Java 文件**
 
 ```bash
-Remove-Item src/main/java/com/mtons/mblog/modules/entity/Links.java
-Remove-Item src/main/java/com/mtons/mblog/modules/repository/LinksRepository.java
-Remove-Item src/main/java/com/mtons/mblog/modules/service/LinksService.java
-Remove-Item src/main/java/com/mtons/mblog/modules/service/impl/LinksServiceImpl.java
-Remove-Item src/main/java/com/mtons/mblog/modules/template/directive/LinksDirective.java
+Remove-Item src/main/java/com/sunblog/modules/entity/Links.java
+Remove-Item src/main/java/com/sunblog/modules/repository/LinksRepository.java
+Remove-Item src/main/java/com/sunblog/modules/service/LinksService.java
+Remove-Item src/main/java/com/sunblog/modules/service/impl/LinksServiceImpl.java
+Remove-Item src/main/java/com/sunblog/modules/template/directive/LinksDirective.java
 ```
 
 - [ ] **Step 2: 提交**
@@ -488,25 +488,25 @@ git commit -m "perf: remove friend links feature"
 ### Task 7: 移除钩子/插件系统
 
 **文件:**
-- Delete: `src/main/java/com/mtons/mblog/modules/hook/Hook.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/hook/interceptor/InterceptorHook.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/hook/interceptor/InterceptorHookManager.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/hook/interceptor/InterceptorHookSupport.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/hook/interceptor/impl/HidenContentPugin.java`
-- Delete: `src/main/java/com/mtons/mblog/modules/hook/interceptor/impl/ViewCopyrightPugin.java`
-- Modify: `src/main/java/com/mtons/mblog/web/interceptor/BaseInterceptor.java`
+- Delete: `src/main/java/com/sunblog/modules/hook/Hook.java`
+- Delete: `src/main/java/com/sunblog/modules/hook/interceptor/InterceptorHook.java`
+- Delete: `src/main/java/com/sunblog/modules/hook/interceptor/InterceptorHookManager.java`
+- Delete: `src/main/java/com/sunblog/modules/hook/interceptor/InterceptorHookSupport.java`
+- Delete: `src/main/java/com/sunblog/modules/hook/interceptor/impl/HidenContentPugin.java`
+- Delete: `src/main/java/com/sunblog/modules/hook/interceptor/impl/ViewCopyrightPugin.java`
+- Modify: `src/main/java/com/sunblog/web/interceptor/BaseInterceptor.java`
 
 - [ ] **Step 1: 删除钩子 Java 文件**
 
 ```bash
-Remove-Item -Recurse -Force src/main/java/com/mtons/mblog/modules/hook
+Remove-Item -Recurse -Force src/main/java/com/sunblog/modules/hook
 ```
 
 - [ ] **Step 2: 修改 BaseInterceptor.java**
 
 移除 Hook 相关 import：
 ```java
-import com.mtons.mblog.modules.hook.interceptor.InterceptorHookManager;
+import com.sunblog.modules.hook.interceptor.InterceptorHookManager;
 ```
 
 移除注入：
@@ -552,14 +552,14 @@ git commit -m "perf: remove hook/plugin system"
 ### Task 8: 移除 Shiro 权限标签库
 
 **文件:**
-- Delete: `src/main/java/com/mtons/mblog/shiro/tags/` (14 个文件)
-- Modify: `src/main/java/com/mtons/mblog/config/SiteConfiguration.java`
+- Delete: `src/main/java/com/sunblog/shiro/tags/` (14 个文件)
+- Modify: `src/main/java/com/sunblog/config/SiteConfiguration.java`
 - Modify: `src/main/resources/templates/classic/inc/header.ftl`
 
 - [ ] **Step 1: 删除 Shiro Tags Java 文件**
 
 ```bash
-Remove-Item -Recurse -Force src/main/java/com/mtons/mblog/shiro/tags
+Remove-Item -Recurse -Force src/main/java/com/sunblog/shiro/tags
 ```
 
 - [ ] **Step 2: 修改 SiteConfiguration.java**
@@ -568,7 +568,7 @@ Remove-Item -Recurse -Force src/main/java/com/mtons/mblog/shiro/tags
 
 删除 import：
 ```java
-import com.mtons.mblog.shiro.tags.ShiroTags;
+import com.sunblog.shiro.tags.ShiroTags;
 ```
 
 从 `setSharedVariable` 方法中移除：
@@ -604,13 +604,13 @@ git commit -m "perf: remove Shiro permission tags"
 ### Task 9: 移除 RESTful API
 
 **文件:**
-- Delete: `src/main/java/com/mtons/mblog/web/controller/api/ApiController.java`
-- Delete: `src/main/java/com/mtons/mblog/web/controller/api/package-info.java`
+- Delete: `src/main/java/com/sunblog/web/controller/api/ApiController.java`
+- Delete: `src/main/java/com/sunblog/web/controller/api/package-info.java`
 
 - [ ] **Step 1: 删除 API Java 文件**
 
 ```bash
-Remove-Item -Recurse -Force src/main/java/com/mtons/mblog/web/controller/api
+Remove-Item -Recurse -Force src/main/java/com/sunblog/web/controller/api
 ```
 
 - [ ] **Step 2: 提交**

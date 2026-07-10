@@ -2,16 +2,22 @@
  * @module validate
  *
  * 职责：
+ *   - 封装 jQuery validate 默认配置（错误标签、错误插入位置、
  *     highlight / unhighlight 样式切换）；
  *   - 为不同业务表单（注册 register、修改密码 updatePassword、
+ *     更新资料 updateProfile）提供专属校验规则与提示文案。
  *
  * 依赖：
  *   - require.async('validation' / 'validation-additional')：jQuery 表单校验
  *
  * 暴露接口：
+ *   - module.exports = Validate
+ *     - register(formId) 注册表单校验
+ *     - updatePassword(formId) 修改密码表单校验
+ *     - updateProfile(formId) 更新资料表单校验
  */
 define(function(require, exports, module) {
-    var J = jQuery, _BATH = _MTONS.BASE_PATH;
+    var J = jQuery, _BATH = _SUNBLOG.BASE_PATH;
 
     /**
      * 默认校验配置。

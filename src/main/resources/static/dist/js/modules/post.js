@@ -88,7 +88,7 @@ define(function(require, exports, module) {
          */
         bindUpload : function () {
             $('#upload_btn').change(function(){
-                $(this).upload(_MTONS.BASE_PATH + '/post/upload?crop=thumbnail_post_size', function(data){
+                $(this).upload(_SUNBLOG.BASE_PATH + '/post/upload?crop=thumbnail_post_size', function(data){
                     if (data.status == 200) {
                         var path = data.path;
                         // 用背景图方式展示缩略图预览，避免额外 img 元素

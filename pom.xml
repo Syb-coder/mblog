@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mtons.mblog</groupId>
-	<artifactId>mblog</artifactId>
+	<groupId>com.sunblog</groupId>
+	<artifactId>sunblog</artifactId>
 	<version>latest</version>
 	<packaging>jar</packaging>
 
@@ -307,7 +307,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<jvmArguments>-Dfile.encoding=UTF-8 -Xshare:off</jvmArguments>
-					<mainClass>com.mtons.mblog.BootApplication</mainClass>
+					<mainClass>com.sunblog.BootApplication</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>

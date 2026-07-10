@@ -1,3 +1,5 @@
+<#-- 用户设置-修改密码页：需要输入当前密码和新密码 -->
+<#-- 继承主布局模板 -->
 <@layout.extends name="/inc/layout.ftl">
 	<@layout.put block="title">
     	<title>修改用户信息</title>
@@ -6,6 +8,7 @@
 	<@layout.put block="contents">
 		<div class="panel panel-default stacked">
 			<div class="panel-heading">
+<#-- 账户设置导航标签页，当前激活"修改密码" -->
 				<ul class="nav nav-pills account-tab">
 					<li><a href="profile">基本信息</a></li>
 					<li><a href="email">修改邮箱</a></li>
@@ -14,10 +17,12 @@
 				</ul>
 			</div>
 			<div class="panel-body">
+				<#-- 操作结果消息提示 -->
 				<div id="message">
 					<@layout.extends name="/inc/action_message.ftl" />
 				</div>
 				<div class="tab-pane active" id="passwd">
+					<#-- 修改密码表单，POST 提交至 password 接口 -->
 					<form id="submitForm" action="password" method="post" class="form-horizontal">
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="password">当前密码</label>
@@ -34,6 +39,8 @@
 						<div class="form-group">
 							<label class="control-label col-lg-3" for="password2">确认密码</label>
 							<div class="col-lg-4">
+<#-- 二次确认新密码，前端 JS 校验一致性 -->
+								<#-- data-required 供 validate 插件识别需校验字段 -->
 								<input type="password" class="form-control" name="password2" data-required placeholder="请再输入一遍新密码" maxlength="18" required>
 							</div>
 						</div>
@@ -47,6 +54,8 @@
 			</div><!-- /panel-content -->
 		</div><!-- /panel -->
 
+<#-- 加载密码修改表单验证 -->
+		<#-- seajs.use 异步加载 validate 模块，调用 updatePassword 绑定校验 -->
 		<script type="text/javascript">
 			seajs.use('validate', function (validate) {
 				validate.updatePassword('#submitForm');

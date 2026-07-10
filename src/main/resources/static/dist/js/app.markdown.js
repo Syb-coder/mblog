@@ -134,7 +134,7 @@ var MdEditor = {
                 var form = new FormData();
                 form.append("file", file);
                 $.ajax({
-                    url: _MTONS.BASE_PATH + "/post/upload",
+                    url: _SUNBLOG.BASE_PATH + "/post/upload",
                     data: form,
                     type: "POST",
                     cache: false, //上传文件无需缓存
@@ -142,7 +142,7 @@ var MdEditor = {
                     contentType: false, //必须
                     success: function (result) {
                         if (result.status === 200) {
-                            var image = `![` + result.name + `](` + _MTONS.BASE_PATH + result.path + `)`;
+                            var image = `![` + result.name + `](` + _SUNBLOG.BASE_PATH + result.path + `)`;
                             editor.replaceSelection(image);
                             var cursor = editor.getCursor();
                             editor.setCursor({

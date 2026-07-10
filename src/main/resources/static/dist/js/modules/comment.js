@@ -74,11 +74,13 @@ define(function(require, exports, module) {
         		that.post(that.options.toId, pid, text);
         	});
 
+        	// 初始化 OwO 表情面板：#face-btn 为触发按钮，#chat_text 为表情插入目标，
+        	// 通过 OwO.json 加载表情数据，点击表情后自动插入到评论输入框
             new OwO({
                 logo: '<i class="fa fa-smile-o fa-2"></i>',
                 container: document.getElementById('face-btn'),
                 target: document.getElementById('chat_text'),
-                api: _MTONS.BASE_PATH + '/dist/vendors/owo/OwO.json',
+                api: _SUNBLOG.BASE_PATH + '/dist/vendors/owo/OwO.json',
                 position: 'down',
                 width: '600px',
                 maxHeight: '250px'

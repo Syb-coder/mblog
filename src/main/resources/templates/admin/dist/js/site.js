@@ -1,3 +1,24 @@
+/**
+ * @module site
+ *
+ * 职责：
+ *   - 后台站点核心脚本（AdminLTE v2.4.5），实现后台布局与交互组件：
+ *     BoxRefresh（box 异步刷新）、BoxWidget（box 折叠/移除）、
+ *     ControlSidebar（控制侧边栏）、DirectChat（聊天面板切换）、
+ *     Layout（布局高度修正）、PushMenu（响应式推入菜单）、
+ *     TodoList（待办列表）、Tree（多级树形菜单）。
+ *
+ * 依赖：
+ *   - jQuery（必需，缺失时直接抛错）
+ *   - slimScroll：fixed 布局下侧边栏滚动条
+ *   - icheck（ifChanged 事件）：TodoList 复选框增强
+ *
+ * 暴露接口：
+ *   - 通过 $.fn 挂载 8 个 jQuery 插件，支持 data API 自动初始化
+ *
+ * 说明：本文件为 AdminLTE 第三方框架代码，保留原始英文注释，中文注释为补充说明。
+ */
+
 /*! AdminLTE app.js
 * ================
 * Main JS application file for AdminLTE v2. This file
@@ -51,6 +72,11 @@ throw new Error('AdminLTE requires jQuery')
 
   // BoxRefresh Class Definition
   // =========================
+  /**
+   * BoxRefresh：为 box 容器提供 AJAX 内容刷新能力。
+   * 点击 .refresh-btn 触发时，向 source 地址发起 GET 请求，
+   * 将返回内容填入 .box-body，并显示/移除加载遮罩。
+   */
   var BoxRefresh = function (element, options) {
     this.element  = element;
     this.options  = options;
@@ -181,6 +207,11 @@ throw new Error('AdminLTE requires jQuery')
 
   // BoxWidget Class Definition
   // =====================
+  /**
+   * BoxWidget：为 .box 容器提供折叠/展开/移除的 widget 能力。
+   * 通过 data-widget="collapse" 触发折叠，data-widget="remove" 触发移除，
+   * 折叠时切换 fa-minus/fa-plus 图标并触发 expanded/collapsed 事件。
+   */
   var BoxWidget = function (element, options) {
     this.element = element;
     this.options = options;
@@ -346,6 +377,11 @@ throw new Error('AdminLTE requires jQuery')
 
   // ControlSidebar Class Definition
   // ===============================
+  /**
+   * ControlSidebar：控制右侧控制侧边栏的展开/收起。
+   * 通过 data-toggle="control-sidebar" 触发，slide 模式下侧边栏滑出，
+   * 兼容 boxed 布局的高度修正。
+   */
   var ControlSidebar = function (element, options) {
     this.element         = element;
     this.options         = options;
@@ -470,6 +506,10 @@ throw new Error('AdminLTE requires jQuery')
 
   // DirectChat Class Definition
   // ===========================
+  /**
+   * DirectChat：直达聊天框，切换聊天联系人面板的展开/收起。
+   * 通过 data-widget="chat-pane-toggle" 触发，切换 direct-chat-contacts-open 样式。
+   */
   var DirectChat = function (element) {
     this.element = element;
   };
@@ -552,6 +592,11 @@ throw new Error('AdminLTE requires jQuery')
     holdTransition: 'hold-transition'
   };
 
+  /**
+   * Layout：AdminLTE 布局核心，修正内容区与侧边栏的最小高度。
+   * 根据窗口、页头、页脚高度计算 content-wrapper 的 min-height，
+   * fixed 布局下为侧边栏启用 slimScroll 滚动条。
+   */
   var Layout = function (options) {
     this.options      = options;
     this.bindedResize = false;
@@ -742,6 +787,10 @@ throw new Error('AdminLTE requires jQuery')
 
   // PushMenu Class Definition
   // =========================
+  /**
+   * PushMenu：侧边栏推入式菜单，响应式收起/展开。
+   * 小屏（<=767px）下点击内容区自动收起，支持 hover 展开的 mini 模式。
+   */
   var PushMenu = function (options) {
     this.options = options;
     this.init();
@@ -905,6 +954,10 @@ throw new Error('AdminLTE requires jQuery')
 
   // TodoList Class Definition
   // =========================
+  /**
+   * TodoList：将列表转换为待办事项，勾选 checkbox 时切换 done 样式，
+   * 并触发 onCheck/onUnCheck 回调。
+   */
   var TodoList = function (element, options) {
     this.element = element;
     this.options = options;
@@ -1026,6 +1079,10 @@ throw new Error('AdminLTE requires jQuery')
 
   // Tree Class Definition
   // =====================
+  /**
+   * Tree：将嵌套列表转为多级树形菜单。
+   * 点击 treeview 节点展开/收起子菜单，支持 accordion 手风琴模式（同时只展开一项）。
+   */
   var Tree = function (element, options) {
     this.element = element;
     this.options = options;

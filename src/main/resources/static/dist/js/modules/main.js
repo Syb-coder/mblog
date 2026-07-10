@@ -27,7 +27,7 @@ define(function(require, exports, module) {
     // var imagesLazyload = function () {
     // 	require.async('lazyload', function () {
     // 		$("img").lazyload({
-	//    	   		 placeholder: _MTONS.BASE_PATH + '/dist/images/spinner.gif',
+	//    	   		 placeholder: _SUNBLOG.BASE_PATH + '/dist/images/spinner.gif',
 	//    	   		 effect: "fadeIn"
 	//    	   	});
     //     });
