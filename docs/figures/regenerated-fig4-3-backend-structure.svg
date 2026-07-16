@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="820" viewBox="0 0 800 820">
+<rect width="800" height="820" fill="#FAFCFF"/>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M 0,0 L 10,5 L 0,10 z" fill="#263238"/></marker>
+<style><![CDATA[text{font-family:"Microsoft YaHei","SimHei","SimSun",sans-serif}.title{font-size:28px;font-weight:700;fill:#fff}.label{font-size:24px;font-weight:700}.small{font-size:22px;fill:#263238}.ctrl{font-size:20px;font-weight:700;fill:#fff}.cdesc{font-size:18px;fill:#263238}.caption{font-size:18px;fill:#37474F}.card{fill:#fff;stroke:#1565C0;stroke-width:2}.soft{fill:#E3F2FD;stroke:#1565C0;stroke-width:2}.warn{fill:#FFF3E0;stroke:#E65100;stroke-width:2}.line{fill:none;stroke:#263238;stroke-width:2}]]></style>
+</defs>
+<rect x="0" y="0" width="800" height="55" fill="#1565C0"/>
+<text x="400" y="38" text-anchor="middle" class="title">图4-3 后台功能结构图</text>
+<rect x="300" y="70" width="200" height="90" rx="10" class="warn"/>
+<text x="400" y="105" text-anchor="middle" class="label" fill="#E65100">后台管理端</text>
+<text x="400" y="140" text-anchor="middle" class="small" fill="#263238">Shiro 授权后访问</text>
+<path d="M 400 160 L 400 185" class="line"/>
+<path d="M 110 185 L 695 185" class="line"/>
+<path d="M 110 185 L 110 215" class="line" marker-end="url(#arrow)"/>
+<path d="M 305 185 L 305 215" class="line" marker-end="url(#arrow)"/>
+<path d="M 500 185 L 500 215" class="line" marker-end="url(#arrow)"/>
+<path d="M 695 185 L 695 215" class="line" marker-end="url(#arrow)"/>
+<rect x="20" y="215" width="180" height="320" rx="10" class="card"/>
+<rect x="20" y="215" width="180" height="40" rx="10" fill="#1565C0"/>
+<rect x="20" y="245" width="180" height="10" fill="#1565C0"/>
+<text x="110" y="243" text-anchor="middle" class="label" fill="#fff">仪表盘</text>
+<text x="110" y="295" text-anchor="middle" class="small">统计数据</text>
+<text x="110" y="330" text-anchor="middle" class="small">JVM 状态</text>
+<rect x="215" y="215" width="180" height="320" rx="10" class="card"/>
+<rect x="215" y="215" width="180" height="40" rx="10" fill="#1565C0"/>
+<rect x="215" y="245" width="180" height="10" fill="#1565C0"/>
+<text x="305" y="243" text-anchor="middle" class="label" fill="#fff">内容管理</text>
+<text x="305" y="295" text-anchor="middle" class="small">频道管理</text>
+<text x="305" y="330" text-anchor="middle" class="small">文章管理</text>
+<text x="305" y="365" text-anchor="middle" class="small">评论管理</text>
+<rect x="410" y="215" width="180" height="320" rx="10" class="card"/>
+<rect x="410" y="215" width="180" height="40" rx="10" fill="#1565C0"/>
+<rect x="410" y="245" width="180" height="10" fill="#1565C0"/>
+<text x="500" y="243" text-anchor="middle" class="label" fill="#fff">用户权限</text>
+<text x="500" y="295" text-anchor="middle" class="small">用户管理</text>
+<text x="500" y="330" text-anchor="middle" class="small">角色分配</text>
+<rect x="605" y="215" width="180" height="320" rx="10" class="card"/>
+<rect x="605" y="215" width="180" height="40" rx="10" fill="#1565C0"/>
+<rect x="605" y="245" width="180" height="10" fill="#1565C0"/>
+<text x="695" y="243" text-anchor="middle" class="label" fill="#fff">系统配置</text>
+<text x="695" y="295" text-anchor="middle" class="small">站点参数</text>
+<text x="695" y="330" text-anchor="middle" class="small">配置刷新</text>
+<path d="M 110 535 L 110 565" class="line" marker-end="url(#arrow)"/>
+<path d="M 305 535 L 305 565" class="line" marker-end="url(#arrow)"/>
+<path d="M 500 535 L 500 565" class="line" marker-end="url(#arrow)"/>
+<path d="M 695 535 L 695 565" class="line" marker-end="url(#arrow)"/>
+<rect x="20" y="565" width="180" height="135" rx="10" class="soft"/>
+<rect x="20" y="565" width="180" height="35" rx="10" fill="#37474F"/>
+<rect x="20" y="590" width="180" height="10" fill="#37474F"/>
+<text x="110" y="590" text-anchor="middle" class="ctrl">AdminController</text>
+<text x="110" y="640" text-anchor="middle" class="cdesc">仪表盘数据</text>
+<text x="110" y="670" text-anchor="middle" class="cdesc">JVM 监控</text>
+<rect x="215" y="565" width="180" height="135" rx="10" class="soft"/>
+<rect x="215" y="565" width="180" height="35" rx="10" fill="#37474F"/>
+<rect x="215" y="590" width="180" height="10" fill="#37474F"/>
+<text x="305" y="583" text-anchor="middle" class="ctrl">Post / Channel</text>
+<text x="305" y="608" text-anchor="middle" class="ctrl">Comment</text>
+<text x="305" y="640" text-anchor="middle" class="cdesc">内容CRUD操作</text>
+<text x="305" y="670" text-anchor="middle" class="cdesc">评论审核管理</text>
+<rect x="410" y="565" width="180" height="135" rx="10" class="soft"/>
+<rect x="410" y="565" width="180" height="35" rx="10" fill="#37474F"/>
+<rect x="410" y="590" width="180" height="10" fill="#37474F"/>
+<text x="500" y="590" text-anchor="middle" class="ctrl">UserController</text>
+<text x="500" y="640" text-anchor="middle" class="cdesc">用户信息管理</text>
+<text x="500" y="670" text-anchor="middle" class="cdesc">角色权限分配</text>
+<rect x="605" y="565" width="180" height="135" rx="10" class="soft"/>
+<rect x="605" y="565" width="180" height="35" rx="10" fill="#37474F"/>
+<rect x="605" y="590" width="180" height="10" fill="#37474F"/>
+<text x="695" y="590" text-anchor="middle" class="ctrl">OptionsController</text>
+<text x="695" y="640" text-anchor="middle" class="cdesc">站点参数配置</text>
+<text x="695" y="670" text-anchor="middle" class="cdesc">配置缓存刷新</text>
+<text x="400" y="740" text-anchor="middle" class="caption">后台模块按管理职责横向分区，箭头从入口到模块再到控制器。</text>
+</svg>

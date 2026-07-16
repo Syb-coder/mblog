@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="630" viewBox="0 0 800 630">
+<rect width="800" height="630" fill="#FAFCFF"/>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M 0,0 L 10,5 L 0,10 z" fill="#263238"/></marker>
+<style><![CDATA[text{font-family:"Microsoft YaHei","SimHei","SimSun",sans-serif}.title{font-size:28px;font-weight:700;fill:#fff}.root{font-size:24px;font-weight:700;fill:#1565C0}.mod{font-size:24px;font-weight:700;fill:#fff}.item{font-size:22px;fill:#263238}.ctrl{font-size:18px;font-weight:700;fill:#fff}.cdesc{font-size:18px;fill:#263238}.hint{font-size:18px;fill:#546E7A;font-style:italic}.card{fill:#FFFFFF;stroke:#1565C0;stroke-width:2}.rootCard{fill:#E3F2FD;stroke:#0D47A1;stroke-width:2.5}.line{fill:none;stroke:#263238;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}]]></style>
+</defs>
+<rect x="0" y="0" width="800" height="55" fill="#1565C0"/>
+<text x="400" y="38" text-anchor="middle" class="title">图4-2 前台功能结构图</text>
+<rect x="300" y="75" width="200" height="55" rx="10" class="rootCard"/>
+<text x="400" y="110" text-anchor="middle" class="root">博客系统前台</text>
+<path d="M 400 130 L 400 150" class="line"/>
+<path d="M 115 150 L 685 150" class="line"/>
+<path d="M 115 150 L 115 170" class="line" marker-end="url(#arrow)"/>
+<path d="M 305 150 L 305 170" class="line" marker-end="url(#arrow)"/>
+<path d="M 495 150 L 495 170" class="line" marker-end="url(#arrow)"/>
+<path d="M 685 150 L 685 170" class="line" marker-end="url(#arrow)"/>
+<rect x="30" y="170" width="170" height="250" rx="10" class="card"/>
+<rect x="30" y="170" width="170" height="40" rx="10" fill="#1565C0"/>
+<rect x="30" y="200" width="170" height="10" fill="#1565C0"/>
+<text x="115" y="198" text-anchor="middle" class="mod">内容浏览</text>
+<text x="115" y="245" text-anchor="middle" class="item">首页文章列表</text>
+<text x="115" y="280" text-anchor="middle" class="item">文章详情页</text>
+<text x="115" y="315" text-anchor="middle" class="item">频道浏览</text>
+<text x="115" y="350" text-anchor="middle" class="item">标签浏览</text>
+<text x="115" y="385" text-anchor="middle" class="item">侧边栏组件</text>
+<rect x="220" y="170" width="170" height="250" rx="10" class="card"/>
+<rect x="220" y="170" width="170" height="40" rx="10" fill="#1565C0"/>
+<rect x="220" y="200" width="170" height="10" fill="#1565C0"/>
+<text x="305" y="198" text-anchor="middle" class="mod">用户中心</text>
+<text x="305" y="245" text-anchor="middle" class="item">用户注册</text>
+<text x="305" y="280" text-anchor="middle" class="item">用户登录</text>
+<text x="305" y="315" text-anchor="middle" class="item">个人资料</text>
+<text x="305" y="350" text-anchor="middle" class="item">修改密码</text>
+<text x="305" y="385" text-anchor="middle" class="item">我的文章</text>
+<rect x="410" y="170" width="170" height="250" rx="10" class="card"/>
+<rect x="410" y="170" width="170" height="40" rx="10" fill="#1565C0"/>
+<rect x="410" y="200" width="170" height="10" fill="#1565C0"/>
+<text x="495" y="198" text-anchor="middle" class="mod">内容创作</text>
+<text x="495" y="245" text-anchor="middle" class="item">发布文章</text>
+<text x="495" y="280" text-anchor="middle" class="item">Markdown编辑器</text>
+<text x="495" y="315" text-anchor="middle" class="item">图片上传</text>
+<text x="495" y="350" text-anchor="middle" class="item">标签插入</text>
+<text x="495" y="385" text-anchor="middle" class="item">频道选择</text>
+<rect x="600" y="170" width="170" height="250" rx="10" class="card"/>
+<rect x="600" y="170" width="170" height="40" rx="10" fill="#1565C0"/>
+<rect x="600" y="200" width="170" height="10" fill="#1565C0"/>
+<text x="685" y="198" text-anchor="middle" class="mod">评论互动</text>
+<text x="685" y="245" text-anchor="middle" class="item">发表评论</text>
+<text x="685" y="280" text-anchor="middle" class="item">回复评论</text>
+<text x="685" y="315" text-anchor="middle" class="item">评论列表</text>
+<text x="685" y="350" text-anchor="middle" class="item">@ 提醒</text>
+<path d="M 115 420 L 115 460" class="line" marker-end="url(#arrow)"/>
+<path d="M 305 420 L 305 460" class="line" marker-end="url(#arrow)"/>
+<path d="M 495 420 L 495 460" class="line" marker-end="url(#arrow)"/>
+<path d="M 685 420 L 685 460" class="line" marker-end="url(#arrow)"/>
+<rect x="30" y="460" width="170" height="120" rx="10" class="card"/>
+<rect x="30" y="460" width="170" height="32" rx="10" fill="#37474F"/>
+<rect x="30" y="482" width="170" height="10" fill="#37474F"/>
+<text x="115" y="483" text-anchor="middle" class="ctrl">IndexController</text>
+<text x="115" y="515" text-anchor="middle" class="cdesc">文章列表与详情</text>
+<text x="115" y="545" text-anchor="middle" class="cdesc">频道与标签浏览</text>
+<rect x="220" y="460" width="170" height="120" rx="10" class="card"/>
+<rect x="220" y="460" width="170" height="32" rx="10" fill="#37474F"/>
+<rect x="220" y="482" width="170" height="10" fill="#37474F"/>
+<text x="305" y="483" text-anchor="middle" class="ctrl">AccountController</text>
+<text x="305" y="515" text-anchor="middle" class="cdesc">注册与登录</text>
+<text x="305" y="545" text-anchor="middle" class="cdesc">个人资料维护</text>
+<rect x="410" y="460" width="170" height="120" rx="10" class="card"/>
+<rect x="410" y="460" width="170" height="32" rx="10" fill="#37474F"/>
+<rect x="410" y="482" width="170" height="10" fill="#37474F"/>
+<text x="495" y="483" text-anchor="middle" class="ctrl">PostController</text>
+<text x="495" y="515" text-anchor="middle" class="cdesc">文章发布编辑</text>
+<text x="495" y="545" text-anchor="middle" class="cdesc">Markdown与资源</text>
+<rect x="600" y="460" width="170" height="120" rx="10" class="card"/>
+<rect x="600" y="460" width="170" height="32" rx="10" fill="#37474F"/>
+<rect x="600" y="482" width="170" height="10" fill="#37474F"/>
+<text x="685" y="483" text-anchor="middle" class="ctrl">CommentController</text>
+<text x="685" y="515" text-anchor="middle" class="cdesc">评论与回复</text>
+<text x="685" y="545" text-anchor="middle" class="cdesc">分页加载</text>
+<text x="400" y="605" text-anchor="middle" class="hint">上层为功能模块，下层为对应的 Spring MVC 控制器；箭头表示调用关系。</text>
+</svg>

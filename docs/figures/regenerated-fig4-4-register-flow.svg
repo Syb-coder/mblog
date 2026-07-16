@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="840" viewBox="0 0 700 840">
+<rect width="700" height="840" fill="#FAFCFF"/>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#263238"/></marker>
+<marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#2E7D32"/></marker>
+<marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="#E65100"/></marker>
+<style><![CDATA[text{font-family:"Microsoft YaHei","SimHei","SimSun",sans-serif}.title{font-size:28px;font-weight:700;fill:#fff}.label{font-size:24px;font-weight:700}.small{font-size:22px;fill:#263238}.branch{font-size:20px;font-weight:700}.caption{font-size:18px;fill:#37474F}.card{fill:#fff;stroke:#1565C0;stroke-width:2}.soft{fill:#E3F2FD;stroke:#1565C0;stroke-width:2}.warn{fill:#FFF3E0;stroke:#E65100;stroke-width:2}.ok{fill:#E8F5E9;stroke:#2E7D32;stroke-width:2}.line{fill:none;stroke:#263238;stroke-width:2}]]></style>
+</defs>
+<rect x="0" y="0" width="700" height="55" fill="#1565C0"/>
+<text x="350" y="38" text-anchor="middle" class="title">图4-4 用户注册流程图</text>
+<rect x="150" y="80" width="400" height="60" rx="10" class="soft"/>
+<text x="350" y="120" text-anchor="middle" class="label" fill="#1565C0">用户提交注册表单</text>
+<path d="M 350 140 L 350 175" class="line" marker-end="url(#arrow)"/>
+<rect x="150" y="175" width="400" height="60" rx="10" class="card"/>
+<text x="350" y="215" text-anchor="middle" class="label" fill="#1565C0">RegisterController 接收请求</text>
+<path d="M 350 235 L 350 270" class="line" marker-end="url(#arrow)"/>
+<rect x="150" y="270" width="400" height="60" rx="10" class="card"/>
+<text x="350" y="310" text-anchor="middle" class="label" fill="#1565C0">检查用户名和密码</text>
+<path d="M 350 330 L 350 365" class="line" marker-end="url(#arrow)"/>
+<polygon points="350,365 475,425 350,485 225,425" fill="#FFF8E1" stroke="#F9A825" stroke-width="2"/>
+<text x="350" y="432" text-anchor="middle" class="small" fill="#263238">用户名是否可用</text>
+<path d="M 225 425 L 130 425 L 130 510" fill="none" stroke="#E65100" stroke-width="2" marker-end="url(#arrowOrange)"/>
+<text x="175" y="415" text-anchor="middle" class="branch" fill="#E65100">否</text>
+<path d="M 475 425 L 570 425 L 570 510" fill="none" stroke="#2E7D32" stroke-width="2" marker-end="url(#arrowGreen)"/>
+<text x="525" y="415" text-anchor="middle" class="branch" fill="#2E7D32">是</text>
+<rect x="30" y="510" width="200" height="60" rx="10" class="warn"/>
+<text x="130" y="550" text-anchor="middle" class="label" fill="#E65100">返回重复提示</text>
+<rect x="470" y="510" width="200" height="60" rx="10" class="ok"/>
+<text x="570" y="550" text-anchor="middle" class="label" fill="#1565C0">保存新用户</text>
+<path d="M 570 570 L 570 610 L 350 610 L 350 640" fill="none" stroke="#263238" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="150" y="640" width="400" height="60" rx="10" class="card"/>
+<text x="350" y="680" text-anchor="middle" class="label" fill="#1565C0">自动登录并进入用户主页</text>
+<text x="350" y="750" text-anchor="middle" class="caption">流程图采用单向主干与左右分支，箭头指向下一处理步骤。</text>
+</svg>

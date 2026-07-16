@@ -29,53 +29,59 @@ package com.sunblog.web.controller.site;
  * Controller 返回 "redirect:/index" 时，浏览器会跳转到 /index 这个 URL。
  */
 public interface Views {
+    // → templates/classic/auth/login.ftl     登录页面
     String LOGIN = "/auth/login";
 
+    // → templates/classic/auth/register.ftl  注册页面
     String REGISTER = "/auth/register";
 
+    // → templates/classic/index.ftl          首页（文章列表）
     String INDEX = "/index";
 
-    /**
-     * <p>占位符 %s 由 {@link #METHOD_POSTS}、{@link #METHOD_COMMENTS}、
-     */
+    // → templates/classic/user/method_posts.ftl 或 method_comments.ftl
+    // 占位符 %s 由 METHOD_POSTS 或 METHOD_COMMENTS 替换
     String USER_METHOD_TEMPLATE = "/user/method_%s";
 
-    /**
-     * 用户主页方法标识 - 文章列表
-     */
+    // 替换 USER_METHOD_TEMPLATE 中的 %s → /user/method_posts
+    // → templates/classic/user/method_posts.ftl  用户主页-文章列表
     String METHOD_POSTS = "posts";
 
-    /**
-     * 用户主页方法标识 - 评论列表
-     */
+    // 替换 USER_METHOD_TEMPLATE 中的 %s → /user/method_comments
+    // → templates/classic/user/method_comments.ftl  用户主页-评论列表
     String METHOD_COMMENTS = "comments";
 
+    // → templates/classic/settings/avatar.ftl   个人设置-修改头像
     String SETTINGS_AVATAR = "/settings/avatar";
 
+    // → templates/classic/settings/password.ftl 个人设置-修改密码
     String SETTINGS_PASSWORD = "/settings/password";
 
+    // → templates/classic/settings/profile.ftl  个人设置-修改资料
     String SETTINGS_PROFILE = "/settings/profile";
 
+    // → templates/classic/tag/index.ftl         标签列表页
     String TAG_INDEX = "/tag/index";
 
+    // → templates/classic/tag/view.ftl          标签详情页（该标签下的文章）
     String TAG_VIEW = "/tag/view";
 
+    // → templates/classic/search.ftl            搜索结果页（模板可能未创建）
     String SEARCH = "/search";
 
+    // → templates/classic/channel/editing.ftl   文章编辑/发布页
     String POST_EDITING = "/channel/editing";
 
+    // → templates/classic/channel/index.ftl     频道下的文章列表页
     String POST_INDEX = "/channel/index";
 
+    // → templates/classic/channel/view.ftl      文章详情页
     String POST_VIEW = "/channel/view";
 
-    /**
-     * 重定向到用户主页：{@code redirect:/users/{id}}
-     * <p>占位符 %d 为用户 ID。</p>
-     */
+    // 不是模板，是浏览器重定向指令
+    // 浏览器跳转到 /users/{id}，例如 /users/5 → 用户ID为5的个人主页
     String REDIRECT_USER_HOME = "redirect:/users/%d";
 
-    /**
-     * 重定向到首页：{@code redirect:/index}
-     */
+    // 不是模板，是浏览器重定向指令
+    // 浏览器跳转到首页 /index
     String REDIRECT_INDEX = "redirect:/index";
 }

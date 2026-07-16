@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="880" viewBox="0 0 800 880">
+<rect width="800" height="880" fill="#FAFCFF"/>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M 0,0 L 10,5 L 0,10 z" fill="#263238"/></marker>
+<marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M 0,0 L 10,5 L 0,10 z" fill="#E65100"/></marker>
+<style><![CDATA[text{font-family:"Microsoft YaHei","SimHei","SimSun",sans-serif}.title{font-size:28px;font-weight:700;fill:#fff}.zone{font-size:22px;font-weight:700;fill:#1565C0}.label{font-size:24px;font-weight:700;fill:#1565C0}.text{font-size:24px;fill:#263238}.sec{font-size:20px;fill:#263238}.small{font-size:18px;fill:#37474F}.tiny{font-size:18px;fill:#37474F}.soft{fill:#E3F2FD;stroke:#1565C0;stroke-width:2}.line{fill:none;stroke:#263238;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}.orangeLine{fill:none;stroke:#E65100;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:6 4}]]></style>
+</defs>
+<rect x="0" y="0" width="800" height="55" fill="#1565C0"/>
+<text x="400" y="38" text-anchor="middle" class="title">图4-1 系统分层架构图</text>
+<rect x="20" y="80" width="500" height="760" rx="12" fill="#F4F9FF" stroke="#BBDEFB" stroke-width="2"/>
+<text x="270" y="110" text-anchor="middle" class="zone">主业务处理链路</text>
+<rect x="560" y="80" width="220" height="760" rx="12" fill="#FFF8F0" stroke="#FFE0B2" stroke-width="2"/>
+<text x="670" y="110" text-anchor="middle" class="zone" fill="#E65100">安全层 Security</text>
+<rect x="35" y="135" width="470" height="160" rx="10" class="soft"/>
+<text x="270" y="170" text-anchor="middle" class="label">表现层 Presentation</text>
+<text x="270" y="205" text-anchor="middle" class="text">FreeMarker 模板渲染页面</text>
+<text x="270" y="240" text-anchor="middle" class="text">ChannelDirective / ContentsDirective</text>
+<text x="270" y="275" text-anchor="middle" class="text">SidebarDirective</text>
+<rect x="35" y="325" width="470" height="130" rx="10" class="soft"/>
+<text x="270" y="360" text-anchor="middle" class="label">控制层 Controller</text>
+<text x="270" y="395" text-anchor="middle" class="text">site 前台控制器处理浏览、登录、发布</text>
+<text x="270" y="430" text-anchor="middle" class="text">admin 后台控制器处理管理操作</text>
+<rect x="35" y="485" width="470" height="160" rx="10" class="soft"/>
+<text x="270" y="520" text-anchor="middle" class="label">业务层 Service</text>
+<text x="270" y="555" text-anchor="middle" class="text">PostService / UserService</text>
+<text x="270" y="590" text-anchor="middle" class="text">CommentService</text>
+<text x="270" y="625" text-anchor="middle" class="text">事务、事件、标签同步、资源计数</text>
+<rect x="35" y="675" width="470" height="130" rx="10" class="soft"/>
+<text x="270" y="710" text-anchor="middle" class="label">持久层 Persistence</text>
+<text x="270" y="745" text-anchor="middle" class="text">Spring Data JPA Repository</text>
+<text x="270" y="780" text-anchor="middle" class="text">MySQL 数据库存储实体数据</text>
+<text x="670" y="170" text-anchor="middle" class="label" fill="#E65100">Security</text>
+<text x="670" y="215" text-anchor="middle" class="sec">Apache Shiro</text>
+<text x="670" y="250" text-anchor="middle" class="sec">过滤器链</text>
+<text x="670" y="360" text-anchor="middle" class="sec">AccountRealm</text>
+<text x="670" y="395" text-anchor="middle" class="sec">认证与授权</text>
+<text x="670" y="430" text-anchor="middle" class="sec">授权判断</text>
+<text x="670" y="520" text-anchor="middle" class="sec">AuthenticatedFilter</text>
+<text x="670" y="555" text-anchor="middle" class="sec">登录拦截</text>
+<text x="670" y="590" text-anchor="middle" class="sec">会话管理</text>
+<text x="670" y="710" text-anchor="middle" class="sec">RBAC</text>
+<text x="670" y="745" text-anchor="middle" class="sec">权限模型</text>
+<text x="670" y="780" text-anchor="middle" class="sec">角色分配</text>
+<path d="M 270 295 L 270 325" class="line" marker-end="url(#arrow)"/>
+<path d="M 270 455 L 270 485" class="line" marker-end="url(#arrow)"/>
+<path d="M 270 645 L 270 675" class="line" marker-end="url(#arrow)"/>
+<path d="M 505 205 L 560 205" class="orangeLine" marker-end="url(#arrowOrange)"/>
+<path d="M 505 395 L 560 395" class="orangeLine" marker-end="url(#arrowOrange)"/>
+<path d="M 505 555 L 560 555" class="orangeLine" marker-end="url(#arrowOrange)"/>
+<path d="M 505 745 L 560 745" class="orangeLine" marker-end="url(#arrowOrange)"/>
+<rect x="230" y="297" width="80" height="26" rx="5" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
+<text x="270" y="315" text-anchor="middle" class="tiny">请求分发</text>
+<rect x="230" y="457" width="80" height="26" rx="5" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
+<text x="270" y="475" text-anchor="middle" class="tiny">调用服务</text>
+<rect x="230" y="647" width="80" height="26" rx="5" fill="#FFFFFF" stroke="#90A4AE" stroke-width="1"/>
+<text x="270" y="665" text-anchor="middle" class="tiny">数据访问</text>
+<text x="400" y="850" text-anchor="middle" class="small">主链路自上而下处理请求；右侧安全层通过过滤器链横向拦截入口。</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1080" viewBox="0 0 900 1080">
+<rect width="900" height="1080" fill="#FAFCFF"/>
+<defs>
+<marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#263238"/></marker>
+<marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#2E7D32"/></marker>
+<marker id="arrowOrange" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#E65100"/></marker>
+<style><![CDATA[text{font-family:"Microsoft YaHei","SimHei","SimSun",sans-serif}.title{font-size:42px;font-weight:700;fill:#fff}.label{font-size:38px;font-weight:700}.small{font-size:32px}.tiny{font-size:28px}.caption{font-size:28px;fill:#37474F}.card{fill:#fff;stroke:#1565C0;stroke-width:2}.soft{fill:#E3F2FD;stroke:#1565C0;stroke-width:2}.warn{fill:#FFF3E0;stroke:#E65100;stroke-width:2}.ok{fill:#E8F5E9;stroke:#2E7D32;stroke-width:2}.line{fill:none;stroke:#263238;stroke-width:2.2}.dash{fill:none;stroke:#E65100;stroke-width:2;stroke-dasharray:8 6}]]></style>
+</defs>
+<rect x="0" y="0" width="900" height="58" fill="#1565C0"/>
+<text x="450.0" y="38" text-anchor="middle" class="title">图5-4 文章删除流程图</text>
+<rect x="250" y="86" width="400" height="72" rx="12" ry="12" class="soft"/>
+<text x="450.0" y="116" text-anchor="middle" class="label" fill="#1565C0">用户发起删除请求</text>
+<rect x="250" y="204" width="400" height="72" rx="12" ry="12" class="card"/>
+<text x="450.0" y="234" text-anchor="middle" class="label" fill="#1565C0">查询文章实体</text>
+<path d="M450 170 L450 204" fill="none" stroke="#263238" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="250" y="322" width="400" height="72" rx="12" ry="12" class="card"/>
+<text x="450.0" y="352" text-anchor="middle" class="label" fill="#1565C0">校验当前用户身份</text>
+<path d="M450 288 L450 322" fill="none" stroke="#263238" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="250" y="440" width="400" height="72" rx="12" ry="12" class="card"/>
+<text x="450.0" y="470" text-anchor="middle" class="label" fill="#1565C0">获取文章资源锁</text>
+<path d="M450 406 L450 440" fill="none" stroke="#263238" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="250" y="558" width="400" height="72" rx="12" ry="12" class="card"/>
+<text x="450.0" y="588" text-anchor="middle" class="label" fill="#1565C0">删除文章和正文</text>
+<path d="M450 524 L450 558" fill="none" stroke="#263238" stroke-width="2.2" marker-end="url(#arrow)"/>
+<polygon points="450,676 650,728 450,780 250,728" fill="#FFF8E1" stroke="#F9A825" stroke-width="2"/>
+<text x="450" y="722" text-anchor="middle" class="small" fill="#263238">是否为作者</text>
+<path d="M450 648 L450 676" fill="none" stroke="#263238" stroke-width="2.2" marker-end="url(#arrow)"/>
+<rect x="80" y="846" width="260" height="76" rx="12" ry="12" class="warn"/>
+<text x="210.0" y="876" text-anchor="middle" class="label" fill="#E65100">返回认证失败</text>
+<rect x="560" y="846" width="260" height="76" rx="12" ry="12" class="ok"/>
+<text x="690.0" y="876" text-anchor="middle" class="label" fill="#1565C0">继续删除</text>
+<path d="M250 728 L210 728 L210 846" fill="none" stroke="#E65100" stroke-width="2.2" marker-end="url(#arrowOrange)"/>
+<path d="M650 728 L690 728 L690 846" fill="none" stroke="#2E7D32" stroke-width="2.2" marker-end="url(#arrowGreen)"/>
+<rect x="250" y="986" width="400" height="72" rx="12" ry="12" class="card"/>
+<text x="450.0" y="1016" text-anchor="middle" class="label" fill="#1565C0">释放资源锁</text>
+<path d="M450 952 L450 986" fill="none" stroke="#263238" stroke-width="2.2" marker-end="url(#arrow)"/>
+<text x="450" y="1038" text-anchor="middle" class="caption" fill="#263238">流程图采用单向主干与左右分支，所有连线从节点边界连接，箭头指向下一处理步骤。</text>
+</svg>
